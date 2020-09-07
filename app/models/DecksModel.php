@@ -45,7 +45,7 @@ class DecksModel extends Model {
         // Create new table for deck and populate
         $this->db->query("CREATE TABLE ".$id." (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, term TEXT, answer TEXT);");
         foreach ($cards as $k => $v) {
-            $this->db->insert($id, array("term" => $k, "answer" => $v));
+            $this->db->insert($id, array("term" => str_replace('\\', '\\\\', $k), "answer" => str_replace('\\', '\\\\', $v)));
         }
     }
 	
@@ -65,10 +65,23 @@ class DecksModel extends Model {
 		// Change cards in deck table
 		$this->db->query("DELETE FROM ".$deck_id.";");
 		foreach ($cards as $k => $v) {
-			$this->db->insert($deck_id, array("term" => $k, "answer" => $v));
+			$this->db->insert($deck_id, array("term" => str_replace('\\', '\\\\', $k), "answer" => str_replace('\\', '\\\\', $v)));
 		}
 	}
+	
+	public function delete_deck($username, $deck_id) {
+		// Delete deck table
+		$this->db->query("DROP TABLE ".$deck_id);
+		
+		// Delete deck from user table
+		$id = $this->db->get_rows($username."_decks", array("deck_id" => $deck_id))["id"];
+		$this->db->delete($username."_decks", $id);
+	}
     
+	public function update_last_studied($username, $deck_id) {
+		$this->db->query("UPDATE ".$username."_decks set last_studied = CURRENT_TIMESTAMP WHERE deck_id = '".$deck_id."';");
+	}
+	
     /**
      * Create deck id - returns unique (to user)
      * string of 8 numbers/letters

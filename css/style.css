@@ -81,7 +81,8 @@ a {
 	color: #007efa;
 	text-decoration: none;
 }
-a:hover { text-decoration: underline;}
+a:hover { text-decoration: underline; cursor: pointer;}
+a i { margin-right: 10px; }
 
 /* Fine print */
 span.fine {
@@ -168,6 +169,9 @@ button.large, input[type=submit].large {
 }
 button.block, input[type=submit].block {
 	width: 100%;
+}
+.spaced {
+	margin: 4px 0px;
 }
 
 /* NAVIGATION */
@@ -314,6 +318,7 @@ textarea {
 	padding-top: 70px !important;
 	padding: 10px;
 	display: none;
+	z-index: 100;
 }
 .alert, .pop-up {
 	background: #fff;
@@ -325,8 +330,15 @@ textarea {
 .alert {
 	overflow: hidden;
 	position: absolute;
+}
+.alert-slide {
 	width: 30%;
 	right: -30%;
+}
+.alert-static {
+	width: 90%;
+	left: 50%;
+	transform: translate(-50%);
 }
 .pop-up {padding: 40px;}
 .alert table td:last-child {
@@ -425,15 +437,13 @@ td {
 td:first-child { padding-left: 0px !important;}
 td:last-child { padding-right: 0px !important;}
 
+/* CARD TABLE */
+table.card-table tr {border-bottom: 2px solid rgba(0,0,0,0.1);}
+table.card-table td:first-child {font-weight: bold; width: 70px;}
+
+
 /* CREATE A DECK */
-/* Style table */
-table.create-table tr {
-    border-bottom: 2px solid rgba(0,0,0,0.1);
-}
-table.create-table td:first-child {
-    width: 70px;
-    font-weight: bold;
-}
+
 /* Style buttons */
 .create-buttons {
     display: inline-block;

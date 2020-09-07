@@ -13,6 +13,7 @@ class Cards extends Controller {
 		$d = new DecksModel();
 		$deck_info = $d->get_deck_info($_SESSION["username"], $deck_id);
 		$data["title"] = $deck_info["title"];
+		$data["last_studied"] = $deck_info["last_studied"];
 		
 		$c = new CardsModel();
 		$data["cards"] = $c->get_cards($deck_id);
@@ -21,6 +22,10 @@ class Cards extends Controller {
 	}
 	
 	public function study($deck_id) {
+		// Set last_studied to today
+		$d = new DecksModel();
+		$d->update_last_studied($_SESSION["username"], $deck_id);
+		
 		$data = array("cards" => array());
 		
 		$c = new CardsModel();

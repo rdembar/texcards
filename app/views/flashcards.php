@@ -3,24 +3,25 @@
 	echo "<script> var cards_arr = ".json_encode($data["cards"]).";</script>";
 ?>
 
-<script>
-	pop_up_alert("warning", "Are you sure?", "Hello");
-</script>
-
 <div class="row">
 	<div class="col-4">
 		<h2><?php echo $data["title"];?></h2>
 		<?php echo count($data["cards"]);?> card<?php echo count($data["cards"]) == 1 ? "" : "s";?>
 		<br>
-		Last studied on ???
+		Last studied on <?php echo date_format(date_create($data["last_studied"]), 'M j, Y');?>
 		<br>
-		<button class="button-fill block"
+		<button class="button-fill block spaced"
 				onclick="window.location.href='<?php echo BASE_URL;?>cards/study/<?php echo $data["deck_id"];?>';">Study</button>
 		<br>
-		<button class="button-outline block"
+		<button style="margin-bottom: 8px;" class="button-outline block spaced"
 				onclick="window.location.href='<?php echo BASE_URL;?>decks/edit/<?php echo $data["deck_id"];?>';">Edit</button>
-		<br><br>
-		<a href = ""><i class="fas fa-trash"></i>Delete Deck</a>
+		<br>
+		<a id = "delete" style="margin-top: 8px;"
+		   onclick="pop_up_static('warning', 'Delete <?php echo $data["title"];?>?', `Are you sure you want to delete this deck? Once 
+		   done, this action cannot be undone. <br> <a href='<?php echo BASE_URL;?>decks/delete/<?php echo $data["deck_id"];?>'>
+		   Yes, I'm sure.</a>`);">
+		   <i class="fas fa-trash"></i>Delete Deck
+		</a>
 	</div>
 	
 	<div class="col-8">

@@ -92,6 +92,14 @@ class Decks extends Controller {
 		$this->view->render_as_page('decks/create', $this->data);
 	}
 	
+	public function delete($deck_id) {
+		$d = new DecksModel();
+		$d->delete_deck($_SESSION["username"], $deck_id);
+		
+		// Redirect
+		header("location: ".BASE_URL."decks/view/deleted");
+	}
+	
 	/** 
 	 * Helper function: stores cards from submitted form as
 	 * term => answer array
@@ -135,4 +143,5 @@ class Decks extends Controller {
         }
 		return false;
 	  }
+	  
 }

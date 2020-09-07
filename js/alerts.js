@@ -1,3 +1,13 @@
+// Functionality for pop-up alerts
+
+// Icons for types of pop-ups 
+var icon = {
+	"error": "times-circle",
+	"warning": "exclamation-triangle",
+	"info": "info-circle",
+	"success": "check-circle"
+};
+
 $(document).ready(function() {
 	// Exit button removes popup
 	$(document).on('click', '.exit', function() {
@@ -6,33 +16,25 @@ $(document).ready(function() {
 	});
 });
 
-// Toggle pop-up alert
-function pop_up_alert(type, title = "", message = "") {
-	var icon = {
-		"error": "times-circle",
-		"warning": "exclamation-triangle",
-		"info": "info-circle",
-		"success": "check-circle"
-	};
-	
-	$('#alert-container').html(`<div class="alert alert-${type}">
-        	<div class="exit"><i class="fas fa-times"></i></div>
-			<table>
-				<tr>
-					<td><i class="fas fa-check-circle"></i></td>
-					<td>
-						<b>${title}</b>
-						<br>
-						${message}
-					</td>
-				</tr>
-			</table>
-        </div>`);
+// Toggle slide-in pop-up
+function pop_up_slide(type, title = "", message = "") {
+	fill_alert(type, title, message);
+	$('.alert').addClass('alert-slide');
 		
 	$('#alert-container').show();
 	show_popup();
 }
 
+// Toggle static pop-up
+function pop_up_static(type, title = "", message = "") {
+	fill_alert(type, title, message);
+	$('.alert').addClass('alert-static');
+	
+	$('#alert-container').show();
+}
+
+
+// HELPER FUNCTIONS
 // Show popup: animation
 function show_popup() {
 	// Slide popup in and out of screen
@@ -49,3 +51,19 @@ function show_popup() {
 	}, 5600);
 }
 
+// Fill in alert
+function fill_alert(type, title = "", message = "") {
+	$('#alert-container').html(`<div class="alert alert-${type}">
+        <div class="exit"><i class="fas fa-times"></i></div>
+		<table>
+			<tr>
+				<td><i class="fas fa-${icon[type]}"></i></td>
+				<td>
+					<b>${title}</b>
+					<br>
+					${message}
+				</td>
+			</tr>
+		</table>
+       </div>`);
+}

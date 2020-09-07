@@ -15,7 +15,7 @@ if (isset($data["cards"])) {
 // New account alert
 if ($data["new_account"] == true) {
 	echo '<script>
-			pop_up_alert("success", "Success!", "Your account has been created successfully. Get started by creating your first deck.");
+			pop_up_slide("success", "Success!", "Your account has been created successfully. Get started by creating your first deck.");
 		  </script>';
 }
 ?>
@@ -31,7 +31,7 @@ if ($data["new_account"] == true) {
         <br>
         
         
-        <table id="cards" class="create-table">
+        <table id="cards" class="create-table card-table">
             <tr>
                 <td><label>Card</label></td>
                 <td><label>Question</label></td>

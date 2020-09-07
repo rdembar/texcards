@@ -58,7 +58,9 @@ class Users extends Model {
                             id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                             deck_id VARCHAR(8) NOT NULL,
                             title VARCHAR(50) NOT NULL,
-                            date_created DATE DEFAULT CURRENT_TIMESTAMP
+                            date_created DATE DEFAULT CURRENT_TIMESTAMP,
+							last_studied DATE DEFAULT CURRENT_TIMESTAMP,
+							num_cards INT 
                         );");
     }
     

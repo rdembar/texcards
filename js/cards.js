@@ -3,6 +3,9 @@ var terms = [];
 var index;
 
 $(document).ready(function() {
+	// Render math
+	renderMathInElement(document.body, {delimiters: [{left: "$$", right: "$$", display: false}]});
+	
 	setup();
 	
 	// Arrow keys move to next/prev card
@@ -36,6 +39,9 @@ function setup() {
 	// Flashcard = first card
 	$('.front .text').html(terms[0]);
 	$('.back .text').html(cards_arr[terms[0]]);
+	
+	// Render math
+	render();
 }
 
 // Sets card to index + num
@@ -46,9 +52,19 @@ function iter(num) {
 		$('.front .text').html(terms[index + num]);
 		$('.back .text').html(cards_arr[terms[index + num]]);
 		
+		// Render math
+		render();
+		
 		// Changes index
 		index += num;
 	}
+}
+
+function render() {
+	var front = $('.front .text')[0];
+	var back = $('.back .text')[0];
+	renderMathInElement(front, {delimiters: [{left: "$$", right: "$$", display: false}]});;
+	renderMathInElement(back, {delimiters: [{left: "$$", right: "$$", display: false}]});;
 }
 
 // Flips card
