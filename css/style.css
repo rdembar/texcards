@@ -17,6 +17,9 @@ body {
 }
 
 /* MAIN ELEMENTS */
+.row {
+	position: relative;
+}
 .row::after {
   content: "";
   clear: both;
@@ -44,9 +47,19 @@ body {
 /* IMAGES */
 .img-container {
     padding: 0px;
+	right: 0px;
+	position: absolute;
+	height: 100%;
 }
 img {
-    width: 100%;
+	max-height: 100%;
+	max-width: 100%;
+	width: 100%;
+	position: absolute;
+	display: block;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 /* TEXT STYLING */
