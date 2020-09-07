@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-12">
+		<table>
+			<tr>
+				<td style="width: 100px;"><i class="far fa-folder block-large"></i></td>
+				<td>
+					<h2><?php echo $_SESSION["username"];?>'s decks</h2>
+					<?php echo count($data["decks"]);?> decks
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<table class="view-decks">
+			<?php
+				foreach ($data["decks"] as $deck) {
+					echo '<tr>
+							<td><h3>'.$deck["title"].'</h3></td>
+							<td>'.$deck["num_cards"].' cards</td>
+							<td>
+								<button class="small button-fill" 
+										onclick="window.location.href = \''.BASE_URL.'cards/view/'.$deck["deck_id"].'\';">View</button>
+								<button class="small button-fill green"
+										onclick="window.location.href = \''.BASE_URL.'cards/study/'.$deck["deck_id"].'\';">Study</button>
+								<button class="small button-outline"
+										onclick="window.location.href= \''.BASE_URL.'decks/edit/'.$deck["deck_id"].'\';">Edit</button>
+							</td>
+						  </tr>';
+				}
+			?>
+		</table>
+	</div>
+</div>
+
+<script src="<?php echo BASE_URL;?>js/view.js"></script>

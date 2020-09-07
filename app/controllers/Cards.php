@@ -1,0 +1,32 @@
+<?php
+
+class Cards extends Controller {
+	public function __construct() {
+		parent::__construct();
+	}
+	
+	public function view($deck_id) {
+		$data = array("title" => "", "last_studied" => "", "deck_id" => "", "cards" => array());
+		
+		$data["deck_id"] = $deck_id;
+		
+		$d = new DecksModel();
+		$deck_info = $d->get_deck_info($_SESSION["username"], $deck_id);
+		$data["title"] = $deck_info["title"];
+		
+		$c = new CardsModel();
+		$data["cards"] = $c->get_cards($deck_id);
+		
+		$this->view->render_as_page('flashcards', $data);
+	}
+	
+	public function study($deck_id) {
+		$data = array("cards" => array());
+		
+		$c = new CardsModel();
+		$data["cards"] = $c->get_cards($deck_id);
+		
+		$this->view->render_as_page('study', $data);
+	}
+	
+}
