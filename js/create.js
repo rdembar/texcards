@@ -6,11 +6,19 @@ $(document).ready(function() {
 	// Add cards if already saved
 	if (typeof cards_arr == 'undefined') {
 		add_card();
+		add_card();
 	} else {
 		for (var card in cards_arr) {
 			add_card(card, cards_arr[card]);
 		}
+		$('textarea').each(function() {
+			text_to_span(this);
+		});
 	}
+	
+	$('span.textarea').each(function() {
+		$(this).addClass('textarea-clear');
+	});
 	
 	// Button to add card
     $('#add_card').on('click', function(e) {
@@ -21,6 +29,7 @@ $(document).ready(function() {
     
     // Delete card buttons
     $(document).on('click', '.del', function() {
+		alert($(this).prop('id'));
         var id = $(this).prop('id');
         delete_card(parseInt(id));
         num_cards -= 1;
@@ -33,42 +42,49 @@ $(document).ready(function() {
         }
     });
     
-    // Focus on textarea shows delete
-    $(document).on('focusin', 'textarea', function() {
-        var id = $(this).attr('name').substr(1);
-        $('#card_'+id).addClass('focus');
-    });
-    $(document).on('focusout', 'textarea', function() {
-        var id = $(this).attr('name').substr(1);
-        $('#card_'+id).removeClass('focus');
-    });
-    
     // Textarea toggle
     $(document).on('click', '.textarea-container', function() {
        $(this).find('textarea').focus(); 
     });
     $(document).on('focusout', 'textarea', function() {
-        var id = $(this).attr('name');
-        var span = document.getElementById(id);
-        $(span).html($(this).val());
-        renderMathInElement(span, {delimiters: [{left: "$$", right: "$$", display: false}]});
+        text_to_span(this);
     });
 });
+
+function text_to_span(txt) {
+	var id = $(txt).attr('name');
+	var span = document.getElementById(id);
+	if($(span).height() != $(txt).height()) {
+		$(span).css('height', ($(txt).height()+24) + "px");
+	}
+	
+	if($(txt).val() == "") {
+		$(span).addClass('textarea-clear');
+	} else {
+		$(span).removeClass('textarea-clear');
+		$(span).html($(txt).val());
+		renderMathInElement(span, {delimiters: [{left: "$$", right: "$$", display: false}]});
+	}
+}
 
 // Adds a card to table
 function add_card(q = "", a = "") {
     var x = num_cards + 1;
     $('#cards').append(`<tr id="card_${x}">
                             <td>${num_cards+1}</td>
-                            <td><textarea name="q${num_cards+1}" placeholder="Question">${q}</textarea></td>
                             <td>
-                                <table>
-                                    <tr>
-                                        <td><textarea name="a${num_cards+1}" placeholder="Answer">${a}</textarea></td>
-                                        <td><i class="fas fa-trash del" id="${x}"></i></td>
-                                    </tr>
-                                </table>
-                            </td>
+								<div class="textarea-container">
+									<textarea name="q${num_cards+1}" placeholder="Question">${q}</textarea>
+									<span id="q${num_cards+1}" class="textarea"></span>
+								</div>
+							</td>
+							<td>
+								<div class="textarea-container">
+									<textarea name="a${num_cards+1}" placeholder="Answer">${a}</textarea>
+									<span id="a${num_cards+1}" class="textarea"></span>
+								</div>
+							</td>
+                            <td><i class="fas fa-trash del" id="${x}"></i></td>   
                         </tr>`);
     num_cards += 1;
 }
@@ -81,19 +97,17 @@ function delete_card(num) {
     // Relabel remaining cards
     var i;
     for(i = num + 1; i <= num_cards; i++) {
-        var td_arr = $(`#card_${i}`).find('td');
-        
-        // Change label
-        $(td_arr[0]).html(i-1);
-        
-        // Change textarea names
-        $(td_arr[1]).find('textarea').attr('name', `q${i-1}`);
-        $(td_arr[2]).find('textarea').attr('name', `a${i-1}`);
-        
-        // Change delete card id
-        $(td_arr[3]).find('.del').html(i-1);
-        
-        // Change card id
-        $(`#card_${i}`).attr('id', `card_${i-1}`);
+        // Change label 
+		$(`#card_${i} td:first-child`).html(i-1);
+		
+		// Change textarea namespaceURI
+		$($(`#card_${i} td`)[1]).find('textarea').attr('name', `q${i-1}`);
+		$($(`#card_${i} td`)[2]).find('textarea').attr('name', `a${i-1}`);
+		
+		// Change del id
+		$(`#card_${i} td:last-child .del`).prop('id', i-1);
+		
+		// Change card id
+		$(`#card_${i}`).prop('id', `card_${i-1}`);
     }
 }

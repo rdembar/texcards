@@ -13,6 +13,7 @@ class Decks extends Controller {
 		// Initialize data
 		$this->data = array("err" => "");
 		$this->data["new_account"] = false;
+		$this->data["deleted"] = false;
 		
 		// Store form cards
 		if($_POST) {
@@ -23,13 +24,17 @@ class Decks extends Controller {
 	/**
 	 * View user decks
 	 */
-    public function view() {
+    public function view($deleted = false) {
+		if($deleted == "deleted") { 
+			$this->data["deleted"] = true;
+		}
+		
 		// Store user decks
 		$d = new DecksModel();
-        $data["decks"] = $d->get_user_decks($_SESSION["username"]);
+        $this->data["decks"] = $d->get_user_decks($_SESSION["username"]);
         
 		// Render page
-		$this->view->render_as_page('decks/view', $data);
+		$this->view->render_as_page('decks/view', $this->data);
     }
     
 	/**
@@ -37,7 +42,7 @@ class Decks extends Controller {
 	 */
     public function create($new = false) { 
 		// Show message if new account
-		if ($new) {
+		if ($new == "new") {
 			$this->data["new_account"] = true;
 		}
 	
@@ -54,7 +59,14 @@ class Decks extends Controller {
                 
                 // Create new deck
                 $d = new DecksModel();
-                $d->new_deck($_SESSION["username"], $_POST["title"], $cards);
+                $id = $d->new_deck($_SESSION["username"], $_POST["title"], $cards);
+				
+				// Redirect 
+				if(isset($_POST["save"])) {
+					header("location: ".BASE_URL."decks/view");
+				} else {
+					header("location: ".BASE_URL."cards/study/".$id);
+				}
             } 
         }
         
@@ -86,6 +98,13 @@ class Decks extends Controller {
 				
 				$d = new DecksModel();
 				$d->edit_deck($_SESSION["username"], $deck_id, $_POST["title"], $cards);
+				
+				// Redirect 
+				if(isset($_POST["save"])) {
+					header("location: ".BASE_URL."decks/view");
+				} else {
+					header("location: ".BASE_URL."cards/study/".$deck_id);
+				}
 			}
 		}
 		

@@ -17,6 +17,9 @@
                 padding: 5px 15px;
                 margin: -10px 0 5px -15px;
             }
+			.alert {
+				position: relative !important;
+			}
         </style>
     </head>
     <body style="padding: 10px;">
@@ -280,14 +283,18 @@
             This is a pop-up box. It is bigger than an alert.
         </div>
 
-        <h1>Progress Bars</h1>
+        <h1>Progress</h1>
     
+		<label>Progress Bars</label>
         <div class="progress"><div class="progress-fill" style="width: 40%;"></div></div>
         <br>
         <div class="progress"><div class="progress-fill progress-fill-red" style="width: 20%;"></div></div>
         <br>
         <div class="progress"><div class="progress-fill progress-fill-green" style="width: 70%;"></div></div>
         
+		<label>Progress dots</label>
+		<div class="progress-dots"></div>
+		
         <h2>Cards</h2>
 
         <label>Basic cards</label>
@@ -346,6 +353,7 @@
     </body>
     
     <script>
+		// Flashcard flip
         $('#card').on('click', function() {
             if ($('.card-inner').css('transform') == 'none') {
                 $('.card-inner').css('transform', 'rotateY(180deg)');
@@ -353,6 +361,35 @@
                 $('.card-inner').css('transform', 'none');   
             }
         });
+		
+		// Progress dots
+		var num_dots = 0;
+		var progress = 0.3;
+		
+		$(document).ready(function() {
+			fill_dots();
+			set_progress();
+			
+			$(window).resize(function() {
+				fill_dots();
+				set_progress();
+			});
+		});
+		
+		function fill_dots() {
+			$('.progress-dots').html('');
+			num_dots = Math.floor($('.progress-dots').width()/24);
+			for (var i = 0; i < num_dots; i++) {
+				$('.progress-dots').append('<div class="progress-dot" />');
+			}
+		}
+		
+		function set_progress() {
+			$('.progress-dot').removeClass('dot-fill');
+			for (var i = 0; i < Math.floor(num_dots*progress); i++) {
+				$($('.progress-dot')[i]).addClass('dot-fill');
+			}
+		}
     </script>
     <script src="<?php echo BASE_URL?>js/nav.js"></script>
     <script src="<?php echo BASE_URL?>js/form.js"></script>

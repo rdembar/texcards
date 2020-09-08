@@ -1,3 +1,11 @@
+<?php
+if ($data["deleted"] == true) {
+	echo "<script>
+			pop_up_slide('success', 'Success', 'Your deck has been deleted', 1200);
+		  </script>";
+}
+?>
+
 <div class="row">
 	<div class="col-12">
 		<table>
@@ -12,8 +20,14 @@
 	</div>
 </div>
 
+
 <div class="row">
 	<div class="col-12">
+		<?php
+			if(count($data["decks"]) == 0) {
+				echo "You have not made any decks yet. <a href='".BASE_URL."decks/create'>Create a deck?</a>";
+			}
+		?>
 		<table class="view-decks">
 			<?php
 				foreach ($data["decks"] as $deck) {

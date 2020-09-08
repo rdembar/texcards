@@ -89,8 +89,8 @@ span.fine {
 	font-size: 0.8em;
 	color: #777777;
 }
-span.green {color: 	rgb(2, 214, 101);}
-span.red {color: rgb(234, 82, 86)}
+span.green {color: 	#03D565;}
+span.red {color: #EB5157;}
 
 /* Labels */
 label {
@@ -131,12 +131,12 @@ button.button-fill, input[type=submit] {
 	color: #fff;
 	border: 1px solid #007efa;
 }
-button.button-fill:active { background: #3399ff; border: 1px solid #007efa;}
+button.button-fill:active, input[type=submit]:active { background: #3399ff; border: 1px solid #007efa;}
 button.button-fill:hover, input[type=submit]:hover { box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);}
 
 /* Colors */
-button.green {background: #03D565; border: 1px solid #03D565;}
-button.green:active {background: #0efb7d; border: 1px solid #0efb7d;;}
+button.green, input[type=submit].green {background: #03D565; border: 1px solid #03D565;}
+button.green:active, input[type=submit].green:active {background: #0efb7d; border: 1px solid #0efb7d;;}
 
 /* Outline button */
 button.button-outline {
@@ -256,6 +256,15 @@ textarea {
     resize: none;
     height: 50px;
     overflow: hidden;
+	padding: 10px 11px !important;
+}
+span.textarea {padding: 10px 11px !important;}
+#pseudo-div {
+	border: 1px solid #000;
+	display: inline-block;
+	overflow-wrap: break-word;
+	visibility: hidden;
+	position: absolute;
 }
 
 /* Checkbox */
@@ -323,7 +332,7 @@ textarea {
 .alert, .pop-up {
 	background: #fff;
 	position: relative;
-	box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+	box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
 	padding: 0px;
 	border-radius: 5px;
 }
@@ -336,7 +345,7 @@ textarea {
 	right: -30%;
 }
 .alert-static {
-	width: 90%;
+	width: 70%;
 	left: 50%;
 	transform: translate(-50%);
 }
@@ -360,10 +369,12 @@ textarea {
 	background: rgba(235, 81, 87, 0.3);
 	color: rgba(235, 81, 87, 1);
 }
+.alert-error a {color: #eb5157;}
 .alert-warning td:first-child {
 	background: rgba(255, 201, 55, 0.3);
 	color: rgba(255, 201, 55, 1);
 }
+.alert-warning a {color: #FFC31F;}
 .alert-info td:first-child {
 	background: rgba(0, 126, 250, 0.3);
 	color: rgba(0, 126, 250, 1);
@@ -372,6 +383,7 @@ textarea {
 	background: rgba(3, 213, 101, 0.3);
 	color: rgba(3, 213, 101, 1);
 }
+.alert-success a {color: #03D565;}
 
 /* Exit button */
 .exit, .del {
@@ -387,7 +399,8 @@ textarea {
 	color: rgba(0,0,0,0.5);
 }
 
-/* Progress bar */
+/* PROGRESS */
+/* Progress bars */
 .progress {
 	background: rgba(0,0,0,0.1);
 	height: 20px;
@@ -400,6 +413,27 @@ textarea {
 }
 .progress-fill-red {background: #FF4B4B;}
 .progress-fill-green {background: #58CC02;}
+
+/* Progress dots */
+.progress-dots {
+	text-align: center;
+	margin-top: 25px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+/* Note: each dot takes up 32px of space */
+.progress-dot {
+	width: 16px;
+	height: 16px;
+	border-radius: 8px;
+	margin: 0px 4px;
+	background: #C2E0FF;
+	display: inline-block;
+	transition: background 0.3s;
+}
+.dot-fill {
+	background: #007EFA;
+}
 
 /* CARDS */
 .card {
@@ -443,28 +477,15 @@ table.card-table td:first-child {font-weight: bold; width: 70px;}
 
 
 /* CREATE A DECK */
-
-/* Style buttons */
 .create-buttons {
     display: inline-block;
     float: right;
 }
-/* Delete show/hide */
-table.create-table table tr {
-    border-bottom: none;
+.create-buttons input[type=submit] {
+	margin-top: 5px !important;
 }
-table.create-table table td:first-child {
-    width: auto;
-}
-table.create-table table td:last-child {
-    width: 30px;
-    display: none;
-}
-table.create-table tr:hover table td:last-child {
-    display: table-cell;
-}
-table.create-table tr.focus td:last-child {
-    display: table-cell;
+table.create-table td:last-child {
+	width: 30px;
 }
 
 /* VIEW DECKS */
@@ -488,6 +509,17 @@ table.view-decks td:last-child {
 	text-align: right;
 }
 
+/* Progess table */
+#progress-table {
+	font-weight: bold;
+}
+.end-study {
+	display: none;
+}
+#back:hover {
+	cursor: pointer;
+}
+
 /* Textarea toggle */
 .textarea-container {
     position: relative;
@@ -503,7 +535,10 @@ span.textarea {
     position: absolute;
     top: 0px;
     user-select: none;
-    /*top: 0px;*/
+	overflow-wrap: break-word;
+}
+span.textarea-clear {
+	opacity: 0;
 }
 
 /* FLASHCARDS */
@@ -525,7 +560,6 @@ span.textarea {
 }
 .front, .back {
   position: absolute;
-  font-size: 1.5em;
   padding: 20px;
   width: 100%;
   height: 100%;
@@ -540,10 +574,42 @@ span.textarea {
   -webkit-transform: rotateY(180deg);
 }
 .text {
+	font-size: 1.5em;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Buttons */
+.button-container {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+.button-container button {
+	border: none;
+	width: 50%;
+	border-radius: 0px;
+	font-weight: bold;
+}
+.button-container button:hover {
+	box-shadow: none !important;
+}
+button.button-wrong {
+	color: rgba(255,255,255,0.7);
+	background: #EB5157;
+}
+button.button-wrong:hover {
+	background: #E7363C;
+}
+button.button-correct {
+	color: rgba(255,255,255,0.9);
+	background: #03D565;
+}
+button.button-correct:hover {
+	background: #03C95F;
 }
 
 /** RESPONSIVE */
@@ -558,9 +624,23 @@ span.textarea {
     .nav-toggle {display: inline-block;}
     nav.menu ul {display: block; width: 100%; float: none; margin: 0px; padding: 0px; display: none;}
     nav.menu li {display: block; padding-left: 0px !important; padding: 8px 0px;}
+
+	/* Alerts */
+	.alert-static {width: 90%;}
 }
 /* Extra small devices (phones) */
 @media only screen and (max-width: 600px) {
+	.create-buttons {
+		display: block;
+		float: none;
+	}
+	#add_card {
+		width: 100%;
+	}
+	.create-buttons input[type=submit] {
+		display: block;
+		width: 100%;
+	}
 	.placeholder {display: none;}
     [class*="col-"] { width: 100%; }
 }

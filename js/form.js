@@ -8,14 +8,28 @@ $(document).ready(function() {
    });
    
    // Textarea automatic resizing
-   $(document).on('keyup', 'textarea', function() {
-        // 'scrollHeight' = height of content + padding (20)
-        // height() = height of visible content
-        // css height = height of content + padding(20) + border(4)
-    
-        if($(this).prop('scrollHeight') > $(this).height() + 20) {
-            // Change css height -> scrollHeight + 4
-            $(this).css('height', $(this).prop('scrollHeight') + 4);
-        }
+   $(document).on('focusin', 'textarea', function() {
+	   	$('#pseudo-div').css('width', ($(this).width()+2) + "px");
+   });
+   
+	$(window).resize(function() {
+		$('textarea').each(function() {
+			$('#pseudo-div').css('width', ($(this).width()+2) + "px");
+			textarea_height(this);
+		});
+	});
+   
+   $(document).on('keydown', 'textarea', function() {			
+		textarea_height(this);
    });
 });
+
+function textarea_height(txt) {
+	$('#pseudo-div').html($(txt).val());
+
+	var height = Math.max(Math.ceil($('#pseudo-div').height()),26);
+    if(height != $(txt).height()) {
+		// Change css height -> scrollHeight + 4
+		$(txt).css('height', (height+24) + "px");
+	}
+}

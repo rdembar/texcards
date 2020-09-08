@@ -30,7 +30,7 @@ class DB {
      * @param string $sql
      */
     public function query($sql) {
-        $this->_mysqli->query($sql);
+        return $this->_mysqli->query($sql);
     }
     
     /**

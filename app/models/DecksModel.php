@@ -14,8 +14,12 @@ class DecksModel extends Model {
 	 * @return array 
 	 */
     public function get_user_decks($username) {	
-		$decks = $this->db->get_rows($username."_decks");
-		return strval(array_keys($decks)[0]) == "id" ? array(0 => $decks) : $decks;
+		$result = $this->db->query("SELECT * FROM ".$username."_decks ORDER BY last_studied DESC;");
+		$decks = array();
+		while($row = $result->fetch_assoc()) {
+			$decks[] = $row;
+		}
+		return $decks;
     }
 	
 	/**
@@ -30,11 +34,13 @@ class DecksModel extends Model {
 	 }
     
     /**
-     * Add new deck to database for given user
+     * Add new deck to database for given user. Returns new deck id.
      *
      * @param string $username
      * @param string $title
      * @param cards array (term => answer)
+	 *
+	 * @return string
      */
     public function new_deck($username, $title, $cards) {
         $id = $this->create_deck_id();
@@ -47,6 +53,8 @@ class DecksModel extends Model {
         foreach ($cards as $k => $v) {
             $this->db->insert($id, array("term" => str_replace('\\', '\\\\', $k), "answer" => str_replace('\\', '\\\\', $v)));
         }
+		
+		return $id;
     }
 	
 	/**

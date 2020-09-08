@@ -28,6 +28,13 @@ class Cards extends Controller {
 		
 		$data = array("cards" => array());
 		
+		$data["deck_id"] = $deck_id;
+		
+		// Get title
+		$d = new DecksModel();
+		$data["title"] = $d->get_deck_info($_SESSION["username"], $deck_id)["title"];
+		
+		// Get cards
 		$c = new CardsModel();
 		$data["cards"] = $c->get_cards($deck_id);
 		

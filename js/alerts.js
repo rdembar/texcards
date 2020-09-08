@@ -17,12 +17,12 @@ $(document).ready(function() {
 });
 
 // Toggle slide-in pop-up
-function pop_up_slide(type, title = "", message = "") {
+function pop_up_slide(type, title = "", message = "", time = 4000) {
 	fill_alert(type, title, message);
 	$('.alert').addClass('alert-slide');
 		
 	$('#alert-container').show();
-	show_popup();
+	show_popup(time);
 }
 
 // Toggle static pop-up
@@ -36,19 +36,19 @@ function pop_up_static(type, title = "", message = "") {
 
 // HELPER FUNCTIONS
 // Show popup: animation
-function show_popup() {
+function show_popup(time) {
 	// Slide popup in and out of screen
-	$('.alert').animate({right: "0"}, 800).delay(4000).animate({right: "-30%"}, 800);
+	$('.alert').animate({right: "0"}, 800).delay(time).animate({right: "-30%"}, 800);
 	
 	// Fade out background
 	var timeout = window.setTimeout(function() {
 		$('#alert-container').css('background', 'none');
-	}, 4800);
+	}, time+800);
 	
 	// Hide alert container
 	var timeout = window.setTimeout(function() {
 		$('#alert-container').hide();
-	}, 5600);
+	}, time+1600);
 }
 
 // Fill in alert

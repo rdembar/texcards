@@ -9,7 +9,13 @@
 		<?php echo count($data["cards"]);?> card<?php echo count($data["cards"]) == 1 ? "" : "s";?>
 		<br>
 		Last studied on <?php echo date_format(date_create($data["last_studied"]), 'M j, Y');?>
-		<br>
+		
+		<br><br>
+		
+		<span class="fine">Use arrow keys to go to next/previous card. Use spacebar or click to flip card.</span>
+		
+		<br><br>
+		
 		<button class="button-fill block spaced"
 				onclick="window.location.href='<?php echo BASE_URL;?>cards/study/<?php echo $data["deck_id"];?>';">Study</button>
 		<br>
@@ -27,10 +33,13 @@
 	<div class="col-8">
 		<div id = "card">
             <div class="card-inner">
-                <div class="front card"><div class="text">Front of card</div></div>
-                <div class="back card"><div class="text">Back of card</div></div>
+                <div class="front card"><div class="text"></div></div>
+                <div class="back card"><div class="text"></div></div>
             </div>
         </div>
+		
+		<div class="progress-dots">
+		</div>
 	</div>
 </div>
 
@@ -60,4 +69,9 @@
 	</div>
 </div>
 
+<script>
+	var study = false;
+</script>
+<script src="<?php echo BASE_URL;?>js/progress.js"></script>
 <script src="<?php echo BASE_URL;?>js/cards.js"></script>
+<script src="<?php echo BASE_URL;?>js/study.js"></script>
