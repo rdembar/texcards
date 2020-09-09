@@ -6,6 +6,7 @@ $(document).ready(function() {
 	// Render math
 	renderMathInElement(document.body, {delimiters: [{left: "$$", right: "$$", display: false}]});
 	
+	// Fills in terms array
 	terms = Object.keys(cards_arr);
 	
 	setup();	
@@ -35,12 +36,6 @@ $(document).ready(function() {
 		flip();
 	});
 });
-
-function first_function() {
-	setTimeout(function() {
-		alert("hello");
-	}, 500);
-}
 
 // Sets up first flashcard
 function setup() {

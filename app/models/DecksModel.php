@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * DecksModel class
+ */
+
 class DecksModel extends Model {
     
     public function __construct() {
@@ -7,7 +11,7 @@ class DecksModel extends Model {
     }
     
 	/**
-	 * Retrieves user decks given username
+	 * Retrieves user decks ordered by date last studied given username
 	 * Each entry in return array represents a user deck
 	 *
 	 * @param string $username
@@ -62,7 +66,7 @@ class DecksModel extends Model {
 	 *
 	 * @param string $username
 	 * @param string $deck_id
-	 * @param string $title
+	 * @param string $title (new title)
 	 * @param array $cards
 	 */
 	public function edit_deck($username, $deck_id, $title, $cards) {
@@ -77,6 +81,12 @@ class DecksModel extends Model {
 		}
 	}
 	
+	/** 
+	 * Deletes user deck
+	 *
+	 * @param string $username
+	 * @param string $deck_id
+	 */
 	public function delete_deck($username, $deck_id) {
 		// Delete deck table
 		$this->db->query("DROP TABLE ".$deck_id);
@@ -86,12 +96,15 @@ class DecksModel extends Model {
 		$this->db->delete($username."_decks", $id);
 	}
     
+	/*
+	 * Sets date last studied on a deck to be current day
+	 */
 	public function update_last_studied($username, $deck_id) {
 		$this->db->query("UPDATE ".$username."_decks set last_studied = CURRENT_TIMESTAMP WHERE deck_id = '".$deck_id."';");
 	}
 	
     /**
-     * Create deck id - returns unique (to user)
+     * Create deck id - returns unique
      * string of 8 numbers/letters
      *
      * @return string

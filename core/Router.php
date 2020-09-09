@@ -11,7 +11,7 @@
             $dispatch = new $controller();
             call_user_func_array(array($dispatch, $method), $params);   
         } else {
-            die('The requested method could not be found.');
+            header("location: ".BASE_URL."page/view/error");
         }
     }
  }

@@ -63,7 +63,40 @@ class Users extends Model {
 							num_cards INT 
                         );");
     }
-    
+	
+    /**
+	 * Changes username
+	 *
+	 * @param string $new_username
+	 */
+	public function change_username($new_username) {
+		$id = $this->get_user_info()["id"];
+		$username = $this->get_user_info()["username"];
+		
+		// Change username in users table
+		$this->db->update("users", array("username" => $new_username), $id);
+		
+		// Change username in decks table
+		$this->db->query("ALTER TABLE ".$username."_decks RENAME TO ".$new_username."_decks;");
+		
+		// Change session username
+		$_SESSION["username"] = $new_username;
+	}
+	
+	/**
+	 * Changes password
+	 * 
+	 * @param string $new_password
+	 */
+	public function change_password($new_password) {
+		// Hash password
+		$password = password_hash($new_password, PASSWORD_DEFAULT);
+		
+		// Change password in users table
+		$id = $this->get_user_info()["id"];
+		$this->db->update("users", array("password" => $password), $id);
+	}
+	
     /**
      * Deletes user account
      */

@@ -2,6 +2,9 @@
 *, body {
   box-sizing: border-box;
 }
+html, body {
+	height: 100%;
+}
 body {
 	font-family: "Nunito";
 	color: #4c4c4c;
@@ -9,11 +12,20 @@ body {
     padding: 0;
     margin: 0px;
 }
+.content-wrap {
+	min-height: 100%;
+	padding-bottom: 100px;
+}
 .content {
     padding: 5px 150px;
 }
 .content-extra-padding {
     padding: 0px 50px;
+}
+#footer {
+	text-align: center;
+	margin-top: -55px;
+	height: 55px;
 }
 
 /* MAIN ELEMENTS */
@@ -42,7 +54,6 @@ body {
 .col-11 {width: 91.6%;}
 .col-12 {width: 100%;}
 
-.white {background: #fff;}
 
 /* IMAGES */
 .img-container {
@@ -52,9 +63,11 @@ body {
 	height: 100%;
 }
 img {
-	max-height: 100%;
-	max-width: 100%;
 	width: 100%;
+	display: block;
+}
+img.center {
+	max-height: 100%;
 	position: absolute;
 	display: block;
 	top: 50%;
@@ -84,11 +97,14 @@ a {
 a:hover { text-decoration: underline; cursor: pointer;}
 a i { margin-right: 10px; }
 
-/* Fine print */
+/* Sizes */
 span.fine {
 	font-size: 0.8em;
 	color: #777777;
 }
+span.large {font-size: 1.2em;}
+
+/* Colors */
 span.green {color: 	#03D565;}
 span.red {color: #EB5157;}
 
@@ -98,7 +114,7 @@ label {
     font-weight: bold;
 }
 
-/* Icons */
+/* ICONS */
 i.block, i.block-large {
 	background: #ffc937;
 	color: #fff;
@@ -110,6 +126,13 @@ i.block {
 i.block-large {
 	font-size: 2em;
 	padding: 16px;
+}
+i.clickable {
+	color: rgba(0,0,0,0.3);
+}
+i.clickable:hover {
+	cursor: pointer;
+	color: rgba(0,0,0,0.5);
 }
 
 /* BUTTONS */
@@ -148,31 +171,22 @@ button.button-outline {
 button.button-outline:hover {background: rgba(0,0,0,0.05);}
 button.button-outline:active {background: rgba(0, 126, 250, 0.1);}
 
-/* Alert buttons */
-.alert button {
-	border: 1px solid rgba(0,0,0,0.4);
-	color: rgba(0,0,0,0.6);
-	background: none;
-}
-.alert button:hover {
-	background: rgba(255,255,255,0.1);
-}
-
-/* Button sizes */
+/* Sizes */
 button.small, input[type=submit].small {
 	font-size: 0.8em;
 	padding: 8px 12px;
 }
 button.large, input[type=submit].large {
 	font-size: 1.1em;
-	padding: 16px 24px;
+	/*padding: 14px 35px;*/
+	padding: 20px 55px;
 }
 button.block, input[type=submit].block {
 	width: 100%;
 }
-.spaced {
-	margin: 4px 0px;
-}
+
+/* Spacing */
+.spaced {margin: 4px 0px;}
 
 /* NAVIGATION */
 nav ul {
@@ -186,10 +200,11 @@ nav ul li {
 }
 nav ul li:hover {cursor: pointer;}
 
-/* Menu bar specific */
+/* Menu bar */
 nav.menu {
 	background: #007efa;
 	color: #fff;
+	min-height: 60px;
 	padding: 15px 30px;
 	font-weight: bold;
 }
@@ -211,6 +226,8 @@ nav.menu ul li.active:hover {
 	color: rgba(255,255,255,1);
 	cursor: default;
 }
+
+/* Toggle menu bar */
 .nav-toggle {
 	display: none;
 	float: right;
@@ -220,7 +237,7 @@ nav.menu ul li.active:hover {
 	cursor: pointer;
 }
 
-/* FORM STYLING */
+/* FORM ELEMENTS */
 input[type=submit] {
     margin-top: 15px;
     margin-bottom: 2px;
@@ -258,7 +275,6 @@ textarea {
     overflow: hidden;
 	padding: 10px 11px !important;
 }
-span.textarea {padding: 10px 11px !important;}
 #pseudo-div {
 	border: 1px solid #000;
 	display: inline-block;
@@ -320,6 +336,8 @@ span.textarea {padding: 10px 11px !important;}
 /* ALERTS */
 #alert-container {
 	position: fixed;
+	top: 0px;
+	left: 0px;
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.1);
@@ -327,7 +345,7 @@ span.textarea {padding: 10px 11px !important;}
 	padding-top: 70px !important;
 	padding: 10px;
 	display: none;
-	z-index: 100;
+	z-index: 1000;
 }
 .alert, .pop-up {
 	background: #fff;
@@ -364,6 +382,7 @@ span.textarea {padding: 10px 11px !important;}
 	width: 50px;
 	text-align: center;
 }
+
 /* Types of alerts */ 
 .alert-error td:first-child {
 	background: rgba(235, 81, 87, 0.3);
@@ -386,17 +405,10 @@ span.textarea {padding: 10px 11px !important;}
 .alert-success a {color: #03D565;}
 
 /* Exit button */
-.exit, .del {
-	color: rgba(0,0,0,0.3);
-}
 .exit {
     position: absolute;
 	right: 10px;
 	top: 10px;
-}
-.exit:hover, .del:hover {
-	cursor: pointer;
-	color: rgba(0,0,0,0.5);
 }
 
 /* PROGRESS */
@@ -411,8 +423,8 @@ span.textarea {padding: 10px 11px !important;}
 	background: #007efa;
 	height: 100%;
 }
-.progress-fill-red {background: #FF4B4B;}
-.progress-fill-green {background: #58CC02;}
+.progress-fill-red {background: #EB5157;}
+.progress-fill-green {background: #03D565;}
 
 /* Progress dots */
 .progress-dots {
@@ -444,7 +456,6 @@ span.textarea {padding: 10px 11px !important;}
 	overflow: hidden;
     margin: 10px 0px;
 }
-/* Headers */
 .card-header {
 	width: 100%;
 	box-sizing: content-box;
@@ -453,8 +464,6 @@ span.textarea {padding: 10px 11px !important;}
 	background: #007efa;
 	color: #fff;
 }
-.card-header-red {background: #FF4B4B;}
-.card-header-green {background: #58CC02;}
 .card-header-grey {background: rgba(0,0,0,0.2); color: #4c4c4c;}
 
 
@@ -471,30 +480,17 @@ td {
 td:first-child { padding-left: 0px !important;}
 td:last-child { padding-right: 0px !important;}
 
-/* CARD TABLE */
+/* Card table */
 table.card-table tr {border-bottom: 2px solid rgba(0,0,0,0.1);}
 table.card-table td:first-child {font-weight: bold; width: 70px;}
 
+/* Specific tables */
+/* Create deck */
+table.create-table td:last-child {width: 30px;}
 
-/* CREATE A DECK */
-.create-buttons {
-    display: inline-block;
-    float: right;
-}
-.create-buttons input[type=submit] {
-	margin-top: 5px !important;
-}
-table.create-table td:last-child {
-	width: 30px;
-}
-
-/* VIEW DECKS */
-/* Style table */
+/* View decks */
 table.view-decks tr:first-child {
 	border-top: 2px solid rgba(0,0,0,0.1);
-}
-table.view-decks tr {
-	border-bottom: 2px solid rgba(0,0,0,0.1);
 }
 table.view-decks button {
 	margin: 0px;
@@ -509,18 +505,24 @@ table.view-decks td:last-child {
 	text-align: right;
 }
 
-/* Progess table */
-#progress-table {
-	font-weight: bold;
+/* Progess */
+#progress-table {font-weight: bold;}
+
+
+/* CREATE A DECK BUTTONS */
+.create-buttons {
+    display: inline-block;
+    float: right;
 }
-.end-study {
-	display: none;
-}
-#back:hover {
-	cursor: pointer;
+.create-buttons input[type=submit] {
+	margin-top: 5px !important;
 }
 
-/* Textarea toggle */
+/* STUDY STYLING */
+.end-study, .end-round {display: none;}
+#back:hover {cursor: pointer;}
+
+/* TEXTAREA TOGGLE */
 .textarea-container {
     position: relative;
 }
@@ -533,6 +535,7 @@ span.textarea {
     height: 50px;
     z-index: 100;
     position: absolute;
+	padding: 10px 11px !important;
     top: 0px;
     user-select: none;
 	overflow-wrap: break-word;
@@ -581,7 +584,7 @@ span.textarea-clear {
     transform: translate(-50%, -50%);
 }
 
-/* Buttons */
+/* FLASHCARD BUTTONS */
 .button-container {
 	position: absolute;
 	bottom: 0px;
@@ -634,9 +637,7 @@ button.button-correct:hover {
 		display: block;
 		float: none;
 	}
-	#add_card {
-		width: 100%;
-	}
+	#add_card {width: 100%;}
 	.create-buttons input[type=submit] {
 		display: block;
 		width: 100%;

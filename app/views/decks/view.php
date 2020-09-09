@@ -1,4 +1,5 @@
 <?php
+// Display deck deleted pop-up
 if ($data["deleted"] == true) {
 	echo "<script>
 			pop_up_slide('success', 'Success', 'Your deck has been deleted', 1200);
@@ -24,11 +25,12 @@ if ($data["deleted"] == true) {
 <div class="row">
 	<div class="col-12">
 		<?php
+			// Display message if no decks
 			if(count($data["decks"]) == 0) {
 				echo "You have not made any decks yet. <a href='".BASE_URL."decks/create'>Create a deck?</a>";
 			}
 		?>
-		<table class="view-decks">
+		<table class="view-decks card-table">
 			<?php
 				foreach ($data["decks"] as $deck) {
 					echo '<tr>
@@ -48,5 +50,3 @@ if ($data["deleted"] == true) {
 		</table>
 	</div>
 </div>
-
-<script src="<?php echo BASE_URL;?>js/view.js"></script>

@@ -3,7 +3,7 @@
 	echo "<script> var cards_arr = ".json_encode($data["cards"]).";</script>";
 ?>
 
-<div class="row">
+<div class="row" id="title-row">
 	<div class="col-12">
 		<h2>Studying: <?php echo $data["title"];?></h2>
 	</div>
@@ -30,20 +30,47 @@
 	</div>
 </div>
 		
-	
+<!-- End of round screen -->
 <div class="row end-round">
 	<div class="col-12">
 		<h2>End of Round 1</h2>
+		<br>
 		
-		21 cards
+		<label>Progress</label>
+		
+		<table style="text-align: center;">
+			<tr>
+				<td>
+					<div class="card">
+						<span id="span-cards" class="large">21</span> 
+						<br>
+						Cards
+					</div>
+				</td>
+				<td>
+					<div class="card">
+						<span id="span-correct" class="large green">21</span> 
+						<br>
+						Correct
+					</div>
+				</td>
+				<td>
+					<div class="card">
+						<span id="span-wrong" class="large red">21</span> 
+						<br>
+						Wrong
+					</div>
+				</td>
+			</tr>
+		</table>
+		
 		<br>
-		3 incorrect
-		<br>
-		7 correct
+		
 		<button class="button-fill block" onclick="new_round();">Next Round</button>
 	</div>
 </div>
-	
+
+<!-- End of deck screen -->	
 <div class="row end-study">
 	<div class="col-12">
 		<h2>Congratulations!</h2>

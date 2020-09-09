@@ -23,7 +23,7 @@
 					Don't have an account? <a href="<?php echo BASE_URL; ?>register/createaccount">Sign up.</a>
 				</form>  
 			</div>
-			<div class="col-6 placeholder-med img-container">
+			<div class="col-6 placeholder img-container">
 				<img src="<?php echo BASE_URL;?>img/login_illustration.svg"/>
 			</div>
 		</div>

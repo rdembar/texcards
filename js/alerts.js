@@ -33,9 +33,7 @@ function pop_up_static(type, title = "", message = "") {
 	$('#alert-container').show();
 }
 
-
-// HELPER FUNCTIONS
-// Show popup: animation
+// Helper: show popup animation
 function show_popup(time) {
 	// Slide popup in and out of screen
 	$('.alert').animate({right: "0"}, 800).delay(time).animate({right: "-30%"}, 800);
@@ -51,10 +49,10 @@ function show_popup(time) {
 	}, time+1600);
 }
 
-// Fill in alert
+// Helper: fill in alert message
 function fill_alert(type, title = "", message = "") {
 	$('#alert-container').html(`<div class="alert alert-${type}">
-        <div class="exit"><i class="fas fa-times"></i></div>
+        <div class="exit"><i class="fas fa-times clickable"></i></div>
 		<table>
 			<tr>
 				<td><i class="fas fa-${icon[type]}"></i></td>

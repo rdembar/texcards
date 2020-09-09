@@ -1,4 +1,4 @@
-// Form.js
+// Form element functionality
 
 $(document).ready(function() {
    // Checkbox functionality
@@ -11,7 +11,7 @@ $(document).ready(function() {
    $(document).on('focusin', 'textarea', function() {
 	   	$('#pseudo-div').css('width', ($(this).width()+2) + "px");
    });
-   
+
 	$(window).resize(function() {
 		$('textarea').each(function() {
 			$('#pseudo-div').css('width', ($(this).width()+2) + "px");
@@ -24,6 +24,7 @@ $(document).ready(function() {
    });
 });
 
+// Set textarea height
 function textarea_height(txt) {
 	$('#pseudo-div').html($(txt).val());
 

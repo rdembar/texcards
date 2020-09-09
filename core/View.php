@@ -9,9 +9,13 @@ class View {
         }
     }
     
-    public function render_as_page($viewName, $data = array()) {
-        $this->render("layout/header");
+    public function render_as_page($viewName, $data = array(), $title = "TexCards") {
+        $this->render("layout/header", array("title" => $title));
         $this->render($viewName, $data);
         $this->render("layout/footer");
     }
+	
+	public function alert($type, $header = "", $message = "") {
+		$this->render("alerts/alert", array("type" => $type, "header" => $header, "message" => $message));
+	}
 }

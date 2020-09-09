@@ -4,6 +4,7 @@
  */
 
 class Page extends Controller {
+	
     public function __construct() {
         parent::__construct();
     }
@@ -14,6 +15,6 @@ class Page extends Controller {
 	 * @param string $page_name
 	 */
 	public function view($page_name) {
-		$this->view->render_as_page($page_name);
+		$this->view->render_as_page($page_name, array(), ucwords($page_name));
 	}
 }

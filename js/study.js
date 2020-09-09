@@ -3,24 +3,29 @@
 var correct = 0; // Stores correct for this round
 var correct_arr = []; // Stores correct for all rounds
 var num_cards = [];
+var current_round = 1;
 
 // Undo button stored variables
 var was_correct = false;
 var last_deleted = "";
+var is_back = false;
 
 $(document).ready(function() {
 	num_cards.push(terms.length);
 	
 	// Undo button 
 	$('#back').on('click', function() {
-		undo();
+		if(!is_back) {
+			undo();
+		}
 	});
 });
 
 // Undo last card 
 function undo() {	
 	// Check not first card
-	if(index != 0 || last_deleted != "") {		
+	if(index != 0 || last_deleted != "") {	
+		is_back = true;
 		if(was_correct) {	
 			terms.splice(index, 0, last_deleted);
 			iter(0);
@@ -44,6 +49,10 @@ function wrong() {
 	}
 	
 	was_correct = false;
+	
+	if(is_back) {
+		is_back = false;
+	}
 }
 
 // Card marked correct
@@ -63,12 +72,17 @@ function press_correct() {
 	}
 	
 	was_correct = true;
+	
+	if(is_back) {
+		is_back = false;
+	}
 }
 
 // End of round
 function end_round() {
 	// Display end of round screen and hide cards
 	$('#card').hide();
+	$('#title-row').hide();
 	$('.progress-dots').hide();
 	$('#back').hide();
 	
@@ -76,6 +90,16 @@ function end_round() {
 		end_study();
 		$('.end-study').show();
 	} else {
+		var c_num = num_cards[current_round-1].toString();
+		var cor_num = correct.toString();
+		var w_num = (c_num - cor_num).toString();
+		
+		$('#span-cards').html(c_num);
+		$('#span-correct').html(cor_num);
+		$('#span-wrong').html(w_num);
+		
+		$('.end-round h2').html("End of Round " + current_round);
+		
 		$('.end-round').show();
 	}
 }
@@ -91,10 +115,15 @@ function new_round() {
 	correct = 0;
 	was_correct = false;
 	last_deleted = "";
+	current_round += 1;
 	
 	// Start new round
 	setup();
-	$('#card').show();
+	$('.card-inner').css('transform', 'none');
+		
+	$('#title-row').show();
+	$('#back').show();
+	$('#card').show();	
 	$('.progress-dots').show();
 	$('.end-round').hide();
 }

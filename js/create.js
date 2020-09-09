@@ -3,8 +3,9 @@
 var num_cards = 0;
 
 $(document).ready(function() {	
-	// Add cards if already saved
-	if (typeof cards_arr == 'undefined') {
+
+	// Add cards if already saved	
+	if (typeof cards_arr == 'undefined' || cards_arr.length == 0) {
 		add_card();
 		add_card();
 	} else {
@@ -29,7 +30,6 @@ $(document).ready(function() {
     
     // Delete card buttons
     $(document).on('click', '.del', function() {
-		alert($(this).prop('id'));
         var id = $(this).prop('id');
         delete_card(parseInt(id));
         num_cards -= 1;
@@ -51,6 +51,7 @@ $(document).ready(function() {
     });
 });
 
+// Toggles textarea -> span
 function text_to_span(txt) {
 	var id = $(txt).attr('name');
 	var span = document.getElementById(id);
@@ -84,7 +85,7 @@ function add_card(q = "", a = "") {
 									<span id="a${num_cards+1}" class="textarea"></span>
 								</div>
 							</td>
-                            <td><i class="fas fa-trash del" id="${x}"></i></td>   
+                            <td><i class="fas fa-trash del clickable" id="${x}"></i></td>   
                         </tr>`);
     num_cards += 1;
 }

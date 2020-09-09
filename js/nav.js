@@ -1,4 +1,3 @@
-// Nav.js
 // Menu bar toggle functionality
 
 $(document).ready(function() {

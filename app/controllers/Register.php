@@ -1,7 +1,11 @@
 <?php
 
-
-class Register extends Controller {    
+/**
+ * Register class: controlls user authentication
+ */
+ 
+class Register extends Controller {  
+  
     public function __construct() {
         parent::__construct();
     }
@@ -11,6 +15,11 @@ class Register extends Controller {
      * account
      */
     public function createAccount() {
+		// If user logged in, redirect
+		if(isset($_SESSION["username"])) {
+			header("location: ".BASE_URL."decks/view");
+		}
+		
         // Stores form errors
         $data = array("username_err" => "", "password_err" => "", "username_class" => "", "password_class" => "");
         
@@ -39,13 +48,18 @@ class Register extends Controller {
         }
         
         // Render sign-up form
-        $this->view->render_as_page("createaccount", $data);
+        $this->view->render_as_page("createaccount", $data, 'Create Account');
     }
     
     /**
      * Login functionality
      */
     public function login() {
+		// If user logged in, redirect
+		if(isset($_SESSION["username"])) {
+			header("location: ".BASE_URL."decks/view");
+		}
+		
         // Stores form errors
         $data = array("username_err" => "", "password_err" => "", "username_class" => "", "password_class" => "");
         
@@ -86,7 +100,7 @@ class Register extends Controller {
         }
         
         // Render login page
-        $this->view->render_as_page("login", $data);
+        $this->view->render_as_page("login", $data, 'Login');
     }
     
     /**

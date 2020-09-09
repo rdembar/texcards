@@ -1,7 +1,7 @@
 <?php
+
 /**
- * Decks class: creates and views
- * user decks
+ * Decks class: controlls user decks
  */
  
 class Decks extends Controller {
@@ -10,10 +10,8 @@ class Decks extends Controller {
     public function __construct() {
         parent::__construct();
 		
-		// Initialize data
-		$this->data = array("err" => "");
-		$this->data["new_account"] = false;
-		$this->data["deleted"] = false;
+		// Initialize data values
+		$this->data = array("err" => "", "new_account" => false, "deleted" => false);
 		
 		// Store form cards
 		if($_POST) {
@@ -23,8 +21,12 @@ class Decks extends Controller {
     
 	/**
 	 * View user decks
+	 *
+	 * @param $deleted is set to string "deleted"
+	 * when user been redirected from deleting a deck
 	 */
     public function view($deleted = false) {
+		// Show alert if deck has been deleted
 		if($deleted == "deleted") { 
 			$this->data["deleted"] = true;
 		}
@@ -34,14 +36,17 @@ class Decks extends Controller {
         $this->data["decks"] = $d->get_user_decks($_SESSION["username"]);
         
 		// Render page
-		$this->view->render_as_page('decks/view', $this->data);
+		$this->view->render_as_page('decks/view', $this->data, 'My Decks');
     }
     
 	/**
 	 * Create a deck
+	 *
+	 * @param $new is set to string "new" 
+	 * when user has been redirected from creating an account
 	 */
     public function create($new = false) { 
-		// Show message if new account
+		// Show alert if new account has been created
 		if ($new == "new") {
 			$this->data["new_account"] = true;
 		}
@@ -62,18 +67,19 @@ class Decks extends Controller {
                 $id = $d->new_deck($_SESSION["username"], $_POST["title"], $cards);
 				
 				// Redirect 
-				if(isset($_POST["save"])) {
-					header("location: ".BASE_URL."decks/view");
-				} else {
-					header("location: ".BASE_URL."cards/study/".$id);
-				}
+				$this->redirect();
             } 
         }
         
-        // Render create page
-        $this->view->render_as_page('decks/create', $this->data);
+        // Render page
+        $this->view->render_as_page('decks/create', $this->data, 'Create a Deck');
     }
 	
+	/**
+	 * Edit a deck 
+	 * 
+	 * @param string $deck_id
+	 */
 	public function edit($deck_id) {		
 		// Retrieve deck title
 		$d = new DecksModel();
@@ -90,27 +96,30 @@ class Decks extends Controller {
 			if ($_POST["title"] != $this->data["title"]) {
 				$this->valid_title($_POST["title"]);
 			}
+			
+			// Check if deck is empty
 			$this->deck_empty();
 			
 			// If no errors, submit form data
-			if (empty($data["err"])) {
+			if (empty($this->data["err"])) {
 				$cards = $this->get_cards_from_form();
 				
 				$d = new DecksModel();
 				$d->edit_deck($_SESSION["username"], $deck_id, $_POST["title"], $cards);
 				
 				// Redirect 
-				if(isset($_POST["save"])) {
-					header("location: ".BASE_URL."decks/view");
-				} else {
-					header("location: ".BASE_URL."cards/study/".$deck_id);
-				}
+				$this->redirect();
 			}
 		}
 		
-		$this->view->render_as_page('decks/create', $this->data);
+		$this->view->render_as_page('decks/create', $this->data, 'Edit '.$this->data["title"]);
 	}
 	
+	/**
+	 * Delete a deck
+	 *
+	 * @param string $deck_id
+	 */
 	public function delete($deck_id) {
 		$d = new DecksModel();
 		$d->delete_deck($_SESSION["username"], $deck_id);
@@ -132,6 +141,11 @@ class Decks extends Controller {
             $cards[$_POST["q".$iter]] = $_POST["a".$iter];
             $iter += 1;
         }
+		foreach($cards as $k => $v) {
+			if(empty($k) || empty($v)) {
+				unset($cards[$k]);
+			}
+		}
 		return $cards;
 	}
 	
@@ -151,7 +165,7 @@ class Decks extends Controller {
 	 }
 	 
 	 /**
-	  * Helper function: checks if deck is empty
+	  * Helper function: checks if deck is empty and stores error message
 	  *
 	  * @return bool
 	  */
@@ -161,6 +175,16 @@ class Decks extends Controller {
 			return true;
         }
 		return false;
-	  }
+	  }  
 	  
+	  /**
+	   * Helper function: redirects after deck has been created/edited
+	   */
+	  private function redirect() {
+		if(isset($_POST["save"])) {
+			header("location: ".BASE_URL."decks/view");
+		} else {
+			header("location: ".BASE_URL."cards/study/".$id);
+		}
+	  }
 }
