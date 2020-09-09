@@ -26,6 +26,10 @@ class Decks extends Controller {
 	 * when user been redirected from deleting a deck
 	 */
     public function view($deleted = false) {
+		if(!isset($_SESSION["username"])) {
+			header("location: ".BASE_URL."register/login");
+		}
+
 		// Show alert if deck has been deleted
 		if($deleted == "deleted") { 
 			$this->data["deleted"] = true;
@@ -46,6 +50,13 @@ class Decks extends Controller {
 	 * when user has been redirected from creating an account
 	 */
     public function create($new = false) { 
+		$this->view->render('layout/header', array("title" => "Create a Deck"));
+		
+		// "Create account" pop-up if not logged in
+		if(!isset($_SESSION["username"])) {
+			$this->view->render('createaccount', array("pop-up" => true));
+		}
+	
 		// Show alert if new account has been created
 		if ($new == "new") {
 			$this->data["new_account"] = true;
@@ -72,7 +83,8 @@ class Decks extends Controller {
         }
         
         // Render page
-        $this->view->render_as_page('decks/create', $this->data, 'Create a Deck');
+        $this->view->render('decks/create', $this->data);
+		$this->view->render('layout/footer');
     }
 	
 	/**

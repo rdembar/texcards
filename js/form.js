@@ -22,6 +22,14 @@ $(document).ready(function() {
    $(document).on('keydown', 'textarea', function() {			
 		textarea_height(this);
    });
+   
+   // Turn form input red
+   $('span.red').each(function() {
+		if($(this).html() != "") {
+			var id = $(this).prop('id');
+			$(`input[name='${id}']`).addClass('invalid');
+		}
+   });
 });
 
 // Set textarea height

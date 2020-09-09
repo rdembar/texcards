@@ -32,7 +32,7 @@ if ($data["new_account"] == true) {
 			</h2>
 			<label>Title</label>
 			<input type="text" name="title" value="<?php echo $title;?>" placeholder="Give your deck a title" />
-			<span class="fine red"><?php echo $data["err"]; ?></span>
+			<span class="fine red" id="title"><?php echo $data["err"]; ?></span>
 					
 			<br><br>
 			<span class="fine">Add LaTeX to cards by putting it in between double dollar sign characters '$$'.</span>

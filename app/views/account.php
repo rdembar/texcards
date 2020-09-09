@@ -5,7 +5,7 @@
 			<input type="hidden" name="change_username" value="yes" />
 			<label>Username</label>
 			<input type="text" name="username" value="<?php echo $_SESSION["username"];?>" />
-			<span class="fine red"><?php echo $data["username_err"];?></span>
+			<span class="fine red" id="username"><?php echo $data["username_err"];?></span>
 			<input type="submit"  class="block" value="Save Changes" />
 		</form>
 		
@@ -16,11 +16,11 @@
 			<input type="hidden" name="change_password" value="yes" />
 			<label>Current Password</label>
 			<input type="password" name="password" />
-			<span class="fine red"><?php echo $data["password_err"];?></span>
+			<span class="fine red" id="password"><?php echo $data["password_err"];?></span>
 			<br>
 			<label>New Password</label>
 			<input type="password" name="new_password" />
-			<span class="fine red"><?php echo $data["new_password_err"];?></span>
+			<span class="fine red" id="new_password"><?php echo $data["new_password_err"];?></span>
 			<br>
 			<label>Confirm New Password</label>
 			<input type="password" name="confirm_new_password" />

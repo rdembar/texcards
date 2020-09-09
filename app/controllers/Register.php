@@ -21,7 +21,7 @@ class Register extends Controller {
 		}
 		
         // Stores form errors
-        $data = array("username_err" => "", "password_err" => "", "username_class" => "", "password_class" => "");
+        $data = array("username_err" => "", "password_err" => "");
         
         // Process form data
         if($_POST) {
@@ -30,11 +30,6 @@ class Register extends Controller {
             $data["username_err"] = $val->valid_username($_POST["username"]);
             if (empty($data["username_err"])) {
                 $data["password_err"] = $val->valid_password($_POST["password"], $_POST["confirm_password"]);
-                if(!empty($data["password_err"])) {
-                    $data["password_class"] = "class = 'invalid'";
-                }
-            } else {
-                $data["username_class"] = "class = 'invalid'";
             }
             
             // Create account
@@ -72,10 +67,8 @@ class Register extends Controller {
             $val = new Validate();
             if (!($val->user_exists($_POST["username"]))) {
                 $data["username_err"] = "There is no account with this username.";
-                $data["username_class"] = "class = 'invalid'";
             } elseif(!($val->password_correct($_POST["username"], $_POST["password"]))) {
                 $data["password_err"] = "The password is not correct.";
-                $data["password_class"] = "class = 'invalid'";
             }
                     
             // Log user in

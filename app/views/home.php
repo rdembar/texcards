@@ -9,8 +9,6 @@
             TexCards is the only flashcard tool on the internet designed
 			exclusively for learning math. 
 			<br>
-			TexCards was created by Rebecca Embar. TexCards is completely free to use, and
-			can be viewed on github at <a href =""></a>.
 			
 			<br><br>
 			<button class="button-fill large">Sign Up</button>
