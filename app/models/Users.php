@@ -101,6 +101,23 @@ class Users extends Model {
      * Deletes user account
      */
     public function destroy() {
-        
+		// Get user info
+		$id = $this->get_user_info()["id"];
+		$username = $this->get_user_info()["username"];
+		
+        // Delete all user decks
+		$result = $this->db->query("SELECT * FROM ".$username."_decks;");
+		while ($row = $result -> fetch_assoc()) {
+			$this->db->query("DROP TABLE ".$row["deck_id"].";");
+		}
+		
+		// Delete user decks table
+		$this->db->query("DROP TABLE ".$username."_decks;");
+		
+		// Delete user from users table
+		$this->db->delete("users", $id);
+		
+		// Ends session
+		unset($_SESSION["username"]);
     }
 }

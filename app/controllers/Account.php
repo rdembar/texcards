@@ -13,7 +13,7 @@ class Account extends Controller {
 		}
 		
 		// Initialize data
-		$this->data = array("username_err" => "", "password_err" => "", "new_password_err" => "");
+		$this->data = array("username_err" => "", "password_err" => "", "new_password_err" => "", "delete_called" => false);
 	}
 
 	/**
@@ -26,10 +26,29 @@ class Account extends Controller {
 				$this->change_username();
 			} else if (isset($_POST["change_password"]) && $_POST["change_password"] == "yes") {
 				$this->change_password();
+			} else if (isset($_POST["delete_account"]) && $_POST["delete_account"] == "yes") {
+				$this->delete_account();
+				$this->data["delete_called"] = true;
 			}
 		} 
 		
 		$this->view->render_as_page("user/account", $this->data, "Account");
+	}
+	
+	/**
+	 * Delete user account
+	 */
+	public function delete_account() {		
+		if(isset($_POST["delete_called"]) && $_POST["delete_called"]) {
+			$user = new Users($_SESSION["username"]);
+			$user->destroy();
+			$this->set_alert("success", "Your account has been deleted.");
+			header('location: '.BASE_URL.'page/home');
+		} else {
+			$message = "Are you sure you want to delete your account? Once done, this action cannot be undone. \
+						<br> <a onclick='$(`#delete_account`).submit();'>Yes, I'm sure.</a>";
+			$this->set_alert("warning", $message, true);
+		}
 	}
 	
 	/**
@@ -49,6 +68,7 @@ class Account extends Controller {
 			}
 		}
 	}
+	
 	
 	/**
 	 * Helper function: called when password changed 

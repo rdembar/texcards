@@ -20,6 +20,11 @@
 			.alert {
 				position: relative !important;
 			}
+			.small-text {
+				width: 40px !important;
+				font-size: 0.8em;
+				padding: 2px !important;
+			}
         </style>
     </head>
     <body style="padding: 10px;">
@@ -292,8 +297,13 @@
         <br>
         <div class="progress"><div class="progress-fill progress-fill-green" style="width: 70%;"></div></div>
         
+		<br><br>
+		
 		<label>Progress dots</label>
+		<br> % filled: <input type="text" class="small-text" value="0"/>
 		<div class="progress-dots"></div>
+		
+		<br><br>
 		
         <h2>Cards</h2>
 
@@ -364,7 +374,8 @@
 		
 		// Progress dots
 		var num_dots = 0;
-		var progress = 0.3;
+		var progress = 0;
+		var prev_progress = 0;
 		
 		$(document).ready(function() {
 			fill_dots();
@@ -373,6 +384,14 @@
 			$(window).resize(function() {
 				fill_dots();
 				set_progress();
+			});
+			
+			$('.small-text').on('keydown', function(e) {
+				if(e.which == 13) {
+					prev_progress = progress;
+					progress = ($(this).val())/100;
+					set_progress();
+				}
 			});
 		});
 		
@@ -385,10 +404,27 @@
 		}
 		
 		function set_progress() {
-			$('.progress-dot').removeClass('dot-fill');
-			for (var i = 0; i < Math.floor(num_dots*progress); i++) {
-				$($('.progress-dot')[i]).addClass('dot-fill');
+			if(progress > prev_progress) {
+				for(var i = Math.floor(num_dots*prev_progress); i < Math.floor(num_dots*progress); i++) {
+					fill_dot(i, 50*(i-Math.floor(num_dots*prev_progress)));
+				}
+			}else if (progress < prev_progress) {
+				for(var i = Math.floor(num_dots*prev_progress)-1; i >= Math.floor(num_dots*progress); i--) {
+					unfill_dot(i, 50*(Math.abs(i-Math.floor(num_dots*prev_progress)+1)));
+				}
 			}
+		}
+		
+		function fill_dot(i, time) {
+			setTimeout(function() {
+				$($('.progress-dot')[i]).addClass('dot-fill');
+			}, time);
+		}
+		
+		function unfill_dot(i, time) {
+			setTimeout(function() {
+				$($('.progress-dot')[i]).removeClass('dot-fill');
+			}, time);
 		}
     </script>
     <script src="<?php echo BASE_URL?>js/nav.js"></script>

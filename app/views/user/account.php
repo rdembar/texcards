@@ -27,10 +27,17 @@
 			<input type="submit" class="block" value="Save Password" />
 		</form>
 		
+		<br>
+		
+		<form id="delete_account" action = "" method = "post">
+			<input type="hidden" name="delete_account" value="yes" />
+			<input type="hidden" name="delete_called" value="<?php echo $data["delete_called"];?>" />
+			<a onclick="$('#delete_account').submit();"><i class="fas fa-trash"></i>Delete Account</a>
+		</form>
 	</div>
 </form>
 	
-	<div class="col-6 placeholder img-container">
+	<div class="col-6 placeholder">
          <img src="<?php echo BASE_URL;?>img/account_illustration_2.svg"/>
     </div>
 </div>

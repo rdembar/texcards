@@ -15,8 +15,9 @@ class View {
 		
 		// Display message if there is one
 		if(isset($_SESSION["message"])) {
-			$this->render("messages/alert", array("type" => $_SESSION["message_type"], "message" => $_SESSION["message"]));
-			unset($_SESSION["message_type"], $_SESSION["message"]);
+			$this->render("messages/alert", array("type" => $_SESSION["message_type"], "message" => 
+														$_SESSION["message"], "static" => $_SESSION["message_static"]));
+			unset($_SESSION["message_type"], $_SESSION["message"], $_SESSION["message_static"]);
 		}
 		
         $this->render($viewName, $data);

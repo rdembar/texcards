@@ -711,7 +711,9 @@ button.button-correct:hover {
 	
 	/* Form entries make space for image */
 	.pop-up input[type=text], .pop-up input[type=password] {width: 45%;}
+	.pop-up span.red {width: 45%; display: block; margin-bottom: -12px;}
 	.pop-up-login input[type=text], .pop-up-login input[type=password] {width: 55%;}
+	.pop-up-login span.red {width: 55%;}
 
 	.message-green {margin-bottom: 10px;}
 }

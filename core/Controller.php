@@ -12,8 +12,9 @@ class Controller extends Application {
         $this->view = new View();
     }
 	
-	protected function set_alert($type, $message = "") {
+	protected function set_alert($type, $message = "", $static = false) {
 		$_SESSION["message_type"] = $type;
 		$_SESSION["message"] = $message;
+		$_SESSION["message_static"] = $static;
 	}
 }

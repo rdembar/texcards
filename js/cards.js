@@ -41,10 +41,6 @@ $(document).ready(function() {
 function setup() {
 	// Initialize variables;
 	index = 0;
-	progress = round(1/terms.length);
-	
-	// Set progress
-	set_progress();
 	
 	// Flashcard = first card
 	$('.front .text').html(terms[0]);
@@ -78,7 +74,8 @@ function iter(num) {
 		index += num;
 	
 		// Reset progress
-		progress = round((index+1)/terms.length);
+		prev_progress = progress;
+		progress = round(index/terms.length);
 		set_progress();
 	}
 }

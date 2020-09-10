@@ -116,6 +116,7 @@ function new_round() {
 	was_correct = false;
 	last_deleted = "";
 	current_round += 1;
+	prev_progress = progress = 0;
 	
 	// Start new round
 	setup();
@@ -126,6 +127,7 @@ function new_round() {
 	$('#card').show();	
 	$('.progress-dots').show();
 	$('.end-round').hide();
+	set_progress();
 }
 
 // All cards finished
