@@ -29,12 +29,15 @@ function undo() {
 		if(was_correct) {	
 			terms.splice(index, 0, last_deleted);
 			iter(0);
+			$('#index').html(parseInt($('#index').html()) -1);
 			correct -= 1;
 		} else {
 			// Go to previous card
 			iter(-1);
 		}
 	}
+	
+	update_progress();
 }
 
 // Card marked wrong
@@ -53,6 +56,8 @@ function wrong() {
 	if(is_back) {
 		is_back = false;
 	}
+	
+	update_progress();
 }
 
 // Card marked correct
@@ -67,6 +72,7 @@ function press_correct() {
 	// Go to next card
 	if(index != terms.length) {
 		iter(0);
+		$('#index').html(parseInt($('#index').html())+1);
 	} else {
 		end_round();
 	}
@@ -76,6 +82,8 @@ function press_correct() {
 	if(is_back) {
 		is_back = false;
 	}
+	
+	update_progress();
 }
 
 // End of round
@@ -83,7 +91,7 @@ function end_round() {
 	// Display end of round screen and hide cards
 	$('#card').hide();
 	$('#title-row').hide();
-	$('.progress-dots').hide();
+	$('#progress').hide();
 	$('#back').hide();
 	
 	if (terms.length == 0) {
@@ -116,18 +124,17 @@ function new_round() {
 	was_correct = false;
 	last_deleted = "";
 	current_round += 1;
-	prev_progress = progress = 0;
 	
 	// Start new round
 	setup();
 	$('.card-inner').css('transform', 'none');
+	$('#progress').html('Card <span id = "index">1</span>/'+terms.length);
 		
 	$('#title-row').show();
 	$('#back').show();
 	$('#card').show();	
-	$('.progress-dots').show();
+	$('#progress').show();
 	$('.end-round').hide();
-	set_progress();
 }
 
 // All cards finished
@@ -143,6 +150,5 @@ function end_study() {
 				</tr>`);
 	}
 }
-
 
 

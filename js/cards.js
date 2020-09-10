@@ -72,11 +72,7 @@ function iter(num) {
 	
 		// Changes index
 		index += num;
-	
-		// Reset progress
-		prev_progress = progress;
-		progress = round(index/terms.length);
-		set_progress();
+		$('#index').html(parseInt($('#index').html()) + num);
 	}
 }
 
@@ -95,9 +91,4 @@ function flip() {
     } else {
         $('.card-inner').css('transform', 'none');   
     }
-}
-
-// Rounds to 2 decimal places
-function round(x) {
-	return Math.round(x*100)/100;
 }

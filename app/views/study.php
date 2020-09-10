@@ -13,6 +13,7 @@
 	<div class="row">
 		<div class="col-12">
 			<span id="back" class="fine"><i class="fas fa-undo"></i> Back to previous card</span>
+			<span class="fine" id="progress" style="float: right;">Card <span id="index">1</span>/<?php echo count($data["cards"]);?></span>
 			<div id = "card">
 				<div class="card-inner">
 					<div class="front card">
@@ -26,8 +27,6 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="progress-dots"></div>
 		</div>
 	</div>
 			

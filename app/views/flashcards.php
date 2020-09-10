@@ -38,8 +38,9 @@
             </div>
         </div>
 		
-		<div class="progress-dots">
-		</div>
+		<br>
+		
+		<span class="fine" style="float: right;">Card <span id="index">1</span>/<?php echo count($data["cards"]);?></span>
 	</div>
 </div>
 
