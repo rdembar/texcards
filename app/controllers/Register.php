@@ -45,7 +45,7 @@ class Register extends Controller {
         }
         
         // Render sign-up form
-        $this->view->render_as_page("createaccount", $this->data, 'Create Account');
+        $this->view->render_as_page("user/createaccount", $this->data, 'Create Account');
     }
     
     /**
@@ -97,7 +97,7 @@ class Register extends Controller {
         }
         
         // Render login page
-        $this->view->render_as_page("login", $this->data, 'Login');
+        $this->view->render_as_page("user/login", $this->data, 'Login');
     }
     
     /**

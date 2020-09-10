@@ -47,7 +47,7 @@ class Decks extends Controller {
     public function create() { 		
 		// "Create account" pop-up if not logged in
 		if(!isset($_SESSION["username"])) {
-			$this->view->render('createaccount', array("pop-up" => true));
+			$this->view->render('user/createaccount', array("pop-up" => true));
 		}
 	
         // Process form data

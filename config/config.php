@@ -15,3 +15,6 @@ define('DB_HOST', 'localhost');
 /** Set start of url */
 define('BASE_URL', 'http://localhost/mvc2/');
 
+/* ACL */
+define('ACCESS_RESTRICTED', 'page');
+

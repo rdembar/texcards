@@ -29,7 +29,7 @@ class Account extends Controller {
 			}
 		} 
 		
-		$this->view->render_as_page("account", $this->data, "Account");
+		$this->view->render_as_page("user/account", $this->data, "Account");
 	}
 	
 	/**

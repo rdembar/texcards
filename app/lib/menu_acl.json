@@ -1,6 +1,9 @@
 {
+"Home" : "page/home",
 "My Decks" : "decks/view",
 "Create a Deck" : "decks/create",
+"Login" : "register/login",
+"Create an Account" : "register/createaccount",
 "My Account" : "account/view",
 "Logout" : "register/logout"
 }

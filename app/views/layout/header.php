@@ -24,36 +24,3 @@
 		</div>
 	
 		<div class="content-wrap">
-			<nav class="menu">
-				<div class="nav-brand">
-					TexCards
-				</div>
-				
-				<div class="nav-toggle">
-					<i class="fas fa-bars"></i>
-				</div>
-		
-				<ul>
-					<?php 
-						if(isset($_SESSION["username"])) {
-							// Signed in
-							echo'<a href="'.BASE_URL.'decks/view"><li>My Decks</li></a>
-								<a href="'.BASE_URL.'decks/create"><li>Create a Deck</li></a>
-								<a href="'.BASE_URL.'account/view"><li>My Account</li></a>
-								<a href="'.BASE_URL.'register/logout"><li>Logout</li></a>';
-						} else { 
-							// Not signed in 
-							echo '<a href="'.BASE_URL.'page/view/home"><li>Home</li></a>
-								<a href="'.BASE_URL.'decks/create"><li>Create a Deck</li></a>
-								<a href="'.BASE_URL.'register/login"><li>Log in</li></a>
-								<a href="'.BASE_URL.'register/createaccount"><li>Create an Account</li></a>';
-						}
-					?>
-				</ul>
-			</nav>
-			
-			<!--You are logged in as <?php if (isset($_SESSION["username"])) { echo $_SESSION["username"]; } ?>
-			<br>
-			Cookies are <?php if (isset($_COOKIE["username"])) {echo $_COOKIE["username"]." ".$_COOKIE["auth"];} ?> -->
-			
-			<div class="content">

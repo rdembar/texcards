@@ -1,0 +1,19 @@
+{
+	"Guest": {
+		"denied" : {},
+		"page" : ["*"],
+		"decks" : ["create"],
+		"register" : ["createaccount", "login"]
+	},
+	"LoggedIn": {
+		"denied" : {
+			"register": ["createaccount", "login"],
+			"page" : ["home"]
+		},
+		"account" : ["*"],
+		"cards" : ["*"],
+		"decks" : ["*"],
+		"page" : ["*"],
+		"register" : ["logout"]
+	}
+}
