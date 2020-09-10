@@ -11,7 +11,7 @@ class Decks extends Controller {
         parent::__construct();
 		
 		// Initialize data values
-		$this->data = array("err" => "", "new_account" => false, "deleted" => false);
+		$this->data = array("err" => "");
 		
 		// Store form cards
 		if($_POST) {
@@ -25,14 +25,9 @@ class Decks extends Controller {
 	 * @param $deleted is set to string "deleted"
 	 * when user been redirected from deleting a deck
 	 */
-    public function view($deleted = false) {
+    public function view() {
 		if(!isset($_SESSION["username"])) {
 			header("location: ".BASE_URL."register/login");
-		}
-
-		// Show alert if deck has been deleted
-		if($deleted == "deleted") { 
-			$this->data["deleted"] = true;
 		}
 		
 		// Store user decks
@@ -49,17 +44,10 @@ class Decks extends Controller {
 	 * @param $new is set to string "new" 
 	 * when user has been redirected from creating an account
 	 */
-    public function create($new = false) { 
-		$this->view->render('layout/header', array("title" => "Create a Deck"));
-		
+    public function create() { 		
 		// "Create account" pop-up if not logged in
 		if(!isset($_SESSION["username"])) {
 			$this->view->render('createaccount', array("pop-up" => true));
-		}
-	
-		// Show alert if new account has been created
-		if ($new == "new") {
-			$this->data["new_account"] = true;
 		}
 	
         // Process form data
@@ -83,8 +71,7 @@ class Decks extends Controller {
         }
         
         // Render page
-        $this->view->render('decks/create', $this->data);
-		$this->view->render('layout/footer');
+        $this->view->render_as_page('decks/create', $this->data, "Create a Deck");
     }
 	
 	/**
@@ -137,7 +124,8 @@ class Decks extends Controller {
 		$d->delete_deck($_SESSION["username"], $deck_id);
 		
 		// Redirect
-		header("location: ".BASE_URL."decks/view/deleted");
+		$this->set_alert("success", "Your deck has been deleted");
+		header("location: ".BASE_URL."decks/view");
 	}
 	
 	/** 

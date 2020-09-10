@@ -19,9 +19,6 @@ body {
 .content {
     padding: 0px 150px;
 }
-.content-extra-padding {
-    padding: 0px 50px;
-}
 #footer {
 	text-align: center;
 	margin-top: -60px;
@@ -239,6 +236,18 @@ nav.menu ul li.active:hover {
 	cursor: pointer;
 }
 
+/* FLASHCARD CONTAINER */
+.flashcard-container {
+	width: 100%;
+	text-align: center;
+}
+.flashcard-container .row {
+	max-width: 950px;
+	display: inline-block;
+	width: 100%;
+	text-align: left;
+}
+
 /* FORM ELEMENTS */
 input[type=submit] {
     margin-top: 15px;
@@ -370,7 +379,7 @@ textarea {
 }
 .alert table td:last-child {
 	padding: 10px;
-	padding-right: 25px !important;
+	padding-right: 40px !important;
 }
 /* Pop-ups */
 .pop-up-container {
@@ -440,6 +449,21 @@ textarea {
 	color: rgba(3, 213, 101, 1);
 }
 .alert-success a {color: #03D565;}
+
+/* Success message */
+.message-green {
+	background: rgba(3, 213, 101, 0.3);
+	border: 1px solid rgba(3, 213, 101, 1);
+	color: #027939;
+	margin-bottom: 40px;
+	border-radius: 4px;
+}
+.message-green i {
+	margin-right: 8px;
+	margin-top: 2px;
+	color: rgba(2,121,57,0.5);
+	font-size: 1em;
+}
 
 /* Exit button */
 .exit {
@@ -556,7 +580,7 @@ table.view-decks td:last-child {
 }
 
 /* STUDY STYLING */
-.end-study, .end-round {display: none;}
+.end-study, .end-round {display: none ;}
 #back:hover {cursor: pointer;}
 
 /* TEXTAREA TOGGLE */
@@ -687,7 +711,9 @@ button.button-correct:hover {
 	
 	/* Form entries make space for image */
 	.pop-up input[type=text], .pop-up input[type=password] {width: 45%;}
-	.pop-up-login input[type=text], .pop-up-login input[type=password] {width: 55%;
+	.pop-up-login input[type=text], .pop-up-login input[type=password] {width: 55%;}
+
+	.message-green {margin-bottom: 10px;}
 }
 
 @media only screen and (max-width: 600px) {

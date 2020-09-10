@@ -5,58 +5,62 @@
  */
  
 class Register extends Controller {  
+
+	public $data;
   
     public function __construct() {
         parent::__construct();
+		
+		$this->data = array("username_err" => "", "password_err" => "", "logged_out" => false);
     }
     
     /**
      * Gathers data from sign-up form and creates
      * account
      */
-    public function createAccount() {
+    public function createaccount() {
 		// If user logged in, redirect
 		if(isset($_SESSION["username"])) {
 			header("location: ".BASE_URL."decks/view");
 		}
-		
-        // Stores form errors
-        $data = array("username_err" => "", "password_err" => "");
         
         // Process form data
         if($_POST) {
             // Validate form entries
             $val = new Validate();
-            $data["username_err"] = $val->valid_username($_POST["username"]);
-            if (empty($data["username_err"])) {
-                $data["password_err"] = $val->valid_password($_POST["password"], $_POST["confirm_password"]);
+            $this->data["username_err"] = $val->valid_username($_POST["username"]);
+            if (empty($this->data["username_err"])) {
+                $this->data["password_err"] = $val->valid_password($_POST["password"], $_POST["confirm_password"]);
             }
             
             // Create account
-            if (empty($data["username_err"]) && empty($data["password_err"])) {
+            if (empty($this->data["username_err"]) && empty($this->data["password_err"])) {
                 $user = new Users($_POST["username"]);
                 $user->new_user($_POST["password"]);
 				$user->login();
 				
-				header("location: ".BASE_URL."decks/create/new");
+				$this->set_alert("success", "You have created an account!");
+				header("location: ".BASE_URL."decks/create");
             }
         }
         
         // Render sign-up form
-        $this->view->render_as_page("createaccount", $data, 'Create Account');
+        $this->view->render_as_page("createaccount", $this->data, 'Create Account');
     }
     
     /**
      * Login functionality
      */
-    public function login() {
+    public function login($logged_out = false) {
 		// If user logged in, redirect
 		if(isset($_SESSION["username"])) {
 			header("location: ".BASE_URL."decks/view");
 		}
-		
-        // Stores form errors
-        $data = array("username_err" => "", "password_err" => "", "username_class" => "", "password_class" => "");
+				
+		// Logged out mesage
+		if($logged_out) {
+			$this->createAccount();
+		}
         
         // Loads cookie class for "Remember me" functionality
         $cookie = new Cookie();
@@ -66,13 +70,13 @@ class Register extends Controller {
             // Validate form entries
             $val = new Validate();
             if (!($val->user_exists($_POST["username"]))) {
-                $data["username_err"] = "There is no account with this username.";
+                $this->data["username_err"] = "There is no account with this username.";
             } elseif(!($val->password_correct($_POST["username"], $_POST["password"]))) {
-                $data["password_err"] = "The password is not correct.";
+                $this->data["password_err"] = "The password is not correct.";
             }
                     
             // Log user in
-            if (empty($data["username_err"]) && empty($data["password_err"])) {
+            if (empty($this->data["username_err"]) && empty($this->data["password_err"])) {
                 $user = new Users($_POST["username"]);
                 $user->login();
                                 
@@ -93,7 +97,7 @@ class Register extends Controller {
         }
         
         // Render login page
-        $this->view->render_as_page("login", $data, 'Login');
+        $this->view->render_as_page("login", $this->data, 'Login');
     }
     
     /**
@@ -103,7 +107,10 @@ class Register extends Controller {
         if(isset($_SESSION["username"])) {
             $user = new Users($_SESSION["username"]);
             $user->logout();
-            header("location: ".BASE_URL."register/login");
-        }
+			$this->set_alert("success", "You have been logged out successfully.");
+			header("location: ".BASE_URL."register/login");
+        } else {
+			header("location: ".BASE_URL."register/login");
+		}
     }
 }

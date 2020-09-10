@@ -17,8 +17,8 @@ $(document).ready(function() {
 });
 
 // Toggle slide-in pop-up
-function pop_up_slide(type, title = "", message = "", time = 4000) {
-	fill_alert(type, title, message);
+function pop_up_slide(type, message = "", time = 4000) {
+	fill_alert(type, message);
 	$('.alert').addClass('alert-slide');
 		
 	$('#alert-container').show();
@@ -26,8 +26,8 @@ function pop_up_slide(type, title = "", message = "", time = 4000) {
 }
 
 // Toggle static pop-up
-function pop_up_static(type, title = "", message = "") {
-	fill_alert(type, title, message);
+function pop_up_static(type, message = "") {
+	fill_alert(type, message);
 	$('.alert').addClass('alert-static');
 	
 	$('#alert-container').show();
@@ -50,15 +50,13 @@ function show_popup(time) {
 }
 
 // Helper: fill in alert message
-function fill_alert(type, title = "", message = "") {
+function fill_alert(type, message = "") {
 	$('#alert-container').html(`<div class="alert alert-${type}">
         <div class="exit"><i class="fas fa-times clickable"></i></div>
 		<table>
 			<tr>
 				<td><i class="fas fa-${icon[type]}"></i></td>
 				<td>
-					<b>${title}</b>
-					<br>
 					${message}
 				</td>
 			</tr>

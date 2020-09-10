@@ -1,7 +1,17 @@
 <div class="pop-up-container">
 	<div class="pop-up pop-up-login">
 		<div class="row">
+			<?php
+				if($data["logged_out"]) {
+					echo'<div class="col-12 message-green">
+							<i class="fas fa-check"></i>
+							You have been logged out successfully.
+						</div>';
+				}
+			?>
+		
 			<div class= "col-6">
+
 				<h2>Login</h2>
 				Welcome back! Log into your account to start studying.
 				

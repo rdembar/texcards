@@ -11,4 +11,9 @@ class Controller extends Application {
         parent::__construct();
         $this->view = new View();
     }
+	
+	protected function set_alert($type, $message = "") {
+		$_SESSION["message_type"] = $type;
+		$_SESSION["message"] = $message;
+	}
 }

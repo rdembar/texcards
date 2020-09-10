@@ -11,13 +11,6 @@ if (isset($_POST["title"])) {
 if (isset($data["cards"])) {
 	echo "<script>var cards_arr = ".json_encode($data["cards"]).";</script>";
 }
-
-// New account alert
-if ($data["new_account"] == true) {
-	echo '<script>
-			pop_up_slide("success", "Success!", "Your account has been created successfully. Get started by creating your first deck.");
-		  </script>';
-}
 ?>
 
 <div class="row">

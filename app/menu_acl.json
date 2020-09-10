@@ -1,0 +1,6 @@
+{
+"My Decks" : "decks/view",
+"Create a Deck" : "decks/create",
+"My Account" : "account/view",
+"Logout" : "register/logout"
+}

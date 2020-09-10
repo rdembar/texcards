@@ -38,7 +38,7 @@ class Users extends Model {
      * Logs user out
      */
     public function logout() {
-        session_destroy();
+        unset($_SESSION["username"]);
     }
     
     /**

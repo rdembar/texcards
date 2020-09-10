@@ -3,70 +3,72 @@
 	echo "<script> var cards_arr = ".json_encode($data["cards"]).";</script>";
 ?>
 
-<div class="row" id="title-row">
-	<div class="col-12">
-		<h2>Studying: <?php echo $data["title"];?></h2>
+<div class="flashcard-container">
+	<div class="row" id="title-row">
+		<div class="col-12">
+			<h2>Studying: <?php echo $data["title"];?></h2>
+		</div>
 	</div>
-</div>
 
-<div class="row">
-	<div class="col-12">
-		<span id="back" class="fine"><i class="fas fa-undo"></i> Back to previous card</span>
-		<div id = "card">
-			<div class="card-inner">
-				<div class="front card">
-					<div class="text">Front of card</div>
-				</div>
-				<div class="back card">
-					<div class="text">Back of card</div>
-					<div class="button-container">
-						<button class="button-fill button-wrong" onclick="wrong();">Wrong</button><button class="button-fill button-correct" onclick="press_correct();">Correct</button>
+	<div class="row">
+		<div class="col-12">
+			<span id="back" class="fine"><i class="fas fa-undo"></i> Back to previous card</span>
+			<div id = "card">
+				<div class="card-inner">
+					<div class="front card">
+						<div class="text">Front of card</div>
+					</div>
+					<div class="back card">
+						<div class="text">Back of card</div>
+						<div class="button-container">
+							<button class="button-fill button-wrong" onclick="wrong();">Wrong</button><button class="button-fill button-correct" onclick="press_correct();">Correct</button>
+						</div>
 					</div>
 				</div>
 			</div>
+			
+			<div class="progress-dots"></div>
 		</div>
-		
-		<div class="progress-dots"></div>
 	</div>
-</div>
-		
-<!-- End of round screen -->
-<div class="row end-round">
-	<div class="col-12">
-		<h2>End of Round 1</h2>
-		<br>
-		
-		<label>Progress</label>
-		
-		<table style="text-align: center;">
-			<tr>
-				<td>
-					<div class="card">
-						<span id="span-cards" class="large">21</span> 
-						<br>
-						Cards
-					</div>
-				</td>
-				<td>
-					<div class="card">
-						<span id="span-correct" class="large green">21</span> 
-						<br>
-						Correct
-					</div>
-				</td>
-				<td>
-					<div class="card">
-						<span id="span-wrong" class="large red">21</span> 
-						<br>
-						Wrong
-					</div>
-				</td>
-			</tr>
-		</table>
-		
-		<br>
-		
-		<button class="button-fill block" onclick="new_round();">Next Round</button>
+			
+	<!-- End of round screen -->
+	<div class="row end-round" style="display: none;">
+		<div class="col-12">
+			<h2>End of Round 1</h2>
+			<br>
+			
+			<label>Progress</label>
+			
+			<table style="text-align: center;">
+				<tr>
+					<td>
+						<div class="card">
+							<span id="span-cards" class="large">21</span> 
+							<br>
+							Cards
+						</div>
+					</td>
+					<td>
+						<div class="card">
+							<span id="span-correct" class="large green">21</span> 
+							<br>
+							Correct
+						</div>
+					</td>
+					<td>
+						<div class="card">
+							<span id="span-wrong" class="large red">21</span> 
+							<br>
+							Wrong
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			<br>
+			
+			<button class="button-fill block" onclick="new_round();">Next Round</button>
+		</div>
 	</div>
 </div>
 

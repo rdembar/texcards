@@ -19,9 +19,7 @@ class Account extends Controller {
 	/**
 	 * View account page
 	 */
-	public function view() {
-		$this->view->render('layout/header', array("title" => "Account"));
-		
+	public function view() {		
 		// Process form data
 		if($_POST) {
 			if(isset($_POST["change_username"]) && $_POST["change_username"] == "yes") {
@@ -31,8 +29,7 @@ class Account extends Controller {
 			}
 		} 
 		
-		$this->view->render('account', $this->data, 'Account');
-		$this->view->render("layout/footer");
+		$this->view->render_as_page("account", $this->data, "Account");
 	}
 	
 	/**
@@ -70,7 +67,7 @@ class Account extends Controller {
 		if(empty($this->data["password_err"]) && empty($this->data["new_password_err"])) {
 			$user = new Users($_SESSION["username"]);
 			$user->change_password($_POST["new_password"]);
-			$this->view->alert("success", "Password Changed", "Your password has been changed successfully.");
+			$this->set_alert("success", "Your password has been changed successfully.");
 		}
 	}
 }

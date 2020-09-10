@@ -1,12 +1,3 @@
-<?php
-// Display deck deleted pop-up
-if ($data["deleted"] == true) {
-	echo "<script>
-			pop_up_slide('success', 'Success', 'Your deck has been deleted', 1200);
-		  </script>";
-}
-?>
-
 <div class="row">
 	<div class="col-12">
 		<table>
