@@ -22,7 +22,7 @@ class Validate extends Model {
         }
         
         // Check username formatting
-        if (!preg_match('/^\w{2,20}$/',$username)) {
+        if (!preg_match('/^\w{2,20}$/', $username)) {
             return "Please enter a different username. Username must be under 20 characters and can contain only letter, numbers, and underscores.";
         }
         
@@ -47,6 +47,16 @@ class Validate extends Model {
         if(empty($password)) {
             return "Please enter a password.";
         }
+		
+		// Check password is long enough
+		if(strlen($password) < 6) {
+			return "Password should have at least 6 characters.";
+		}
+		
+		// Check password is composed of printable ASCII characters (no space)
+		if(!preg_match('%^[!-~]+$%', $password)) {
+			return 'Not a valid password. Please choose a different password.';
+		}
         
         // Check passwords match
         if ($password != $confirm_password) {
@@ -73,9 +83,14 @@ class Validate extends Model {
         if(strlen($title) > 20) {
             return "Title can have up to 20 characters.";
         }
+		
+		// Checks title is composed of printable ASCII characters
+		if(!preg_match('%^[ -~]+$%', $title)) {
+			return "Not a valid title. Please choose a different title.";
+		}
         
 		// Checks title unique
-        $decks = $this->db->get_rows($_SESSION["username"]."_decks", array("title" => $title));
+        $decks = $this->db->get_rows($_SESSION["username"]."_decks", array("title" => addslashes($title)));
         if ($decks != []) {
             return "You already have a deck with that title. Please choose a unique title.";
         }
@@ -92,7 +107,7 @@ class Validate extends Model {
         if (empty($username)) {
             return false;
         }
-        $info = $this->db->get_rows("users", array("username" => $username));
+        $info = $this->db->get_rows("users", array("username" => addslashes($username)));
         return $info == [] ? false : true;
     }
     

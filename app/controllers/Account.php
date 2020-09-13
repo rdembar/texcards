@@ -7,11 +7,6 @@ class Account extends Controller {
 	public function __construct() {
 		parent::__construct();
 		
-		// If user not logged in, redirect
-		if(!isset($_SESSION["username"])) {
-			header("location: ".BASE_URL."register/login");
-		}
-		
 		// Initialize data
 		$this->data = array("username_err" => "", "password_err" => "", "new_password_err" => "", "delete_called" => false);
 	}
@@ -26,9 +21,6 @@ class Account extends Controller {
 				$this->change_username();
 			} else if (isset($_POST["change_password"]) && $_POST["change_password"] == "yes") {
 				$this->change_password();
-			} else if (isset($_POST["delete_account"]) && $_POST["delete_account"] == "yes") {
-				$this->delete_account();
-				$this->data["delete_called"] = true;
 			}
 		} 
 		
@@ -39,15 +31,14 @@ class Account extends Controller {
 	 * Delete user account
 	 */
 	public function delete_account() {		
-		if(isset($_POST["delete_called"]) && $_POST["delete_called"]) {
+		if($_POST && isset($_POST["sure"]) && $_POST["sure"] == "yes") {
 			$user = new Users($_SESSION["username"]);
 			$user->destroy();
 			$this->set_alert("success", "Your account has been deleted.");
-			header('location: '.BASE_URL.'page/home');
+			Router::redirect('page/home');
 		} else {
-			$message = "Are you sure you want to delete your account? Once done, this action cannot be undone. \
-						<br> <a onclick='$(`#delete_account`).submit();'>Yes, I'm sure.</a>";
-			$this->set_alert("warning", $message, true);
+			$this->warn("Are you sure you want to delete your account? Once done, this action cannot be undone.", "account/delete_account");
+			Router::redirect('account/view');
 		}
 	}
 	

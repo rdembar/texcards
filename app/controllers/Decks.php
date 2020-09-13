@@ -21,15 +21,8 @@ class Decks extends Controller {
     
 	/**
 	 * View user decks
-	 *
-	 * @param $deleted is set to string "deleted"
-	 * when user been redirected from deleting a deck
 	 */
     public function view() {
-		if(!isset($_SESSION["username"])) {
-			header("location: ".BASE_URL."register/login");
-		}
-		
 		// Store user decks
 		$d = new DecksModel();
         $this->data["decks"] = $d->get_user_decks($_SESSION["username"]);
@@ -40,17 +33,9 @@ class Decks extends Controller {
     
 	/**
 	 * Create a deck
-	 *
-	 * @param $new is set to string "new" 
-	 * when user has been redirected from creating an account
 	 */
     public function create() { 		
-		// "Create account" pop-up if not logged in
-		if(!isset($_SESSION["username"])) {
-			$this->view->render('user/createaccount', array("pop-up" => true));
-		}
-	
-        // Process form data
+	     // Process form data
         if($_POST) {
 			// Validate data
 			$this->valid_title($_POST["title"]);
@@ -66,7 +51,7 @@ class Decks extends Controller {
                 $id = $d->new_deck($_SESSION["username"], $_POST["title"], $cards);
 				
 				// Redirect 
-				$this->redirect();
+				$this->redirect($id);
             } 
         }
         
@@ -107,7 +92,7 @@ class Decks extends Controller {
 				$d->edit_deck($_SESSION["username"], $deck_id, $_POST["title"], $cards);
 				
 				// Redirect 
-				$this->redirect();
+				$this->redirect($deck_id);
 			}
 		}
 		
@@ -120,12 +105,18 @@ class Decks extends Controller {
 	 * @param string $deck_id
 	 */
 	public function delete($deck_id) {
-		$d = new DecksModel();
-		$d->delete_deck($_SESSION["username"], $deck_id);
-		
-		// Redirect
-		$this->set_alert("success", "Your deck has been deleted");
-		header("location: ".BASE_URL."decks/view");
+		// Double check w/ warning message
+		if($_POST && isset($_POST["sure"]) && $_POST["sure"] == "yes") {
+			$d = new DecksModel();
+			$d->delete_deck($_SESSION["username"], $deck_id);
+				
+			// Redirect
+			$this->set_alert("success", "Your deck has been deleted");
+			Router::redirect('decks/view');
+		} else {
+			$this->warn("Are you sure you want to delete this deck? Once done, this action cannot be undone.", "decks/delete/".$deck_id);
+			Router::redirect('cards/view/'.$deck_id);
+		}
 	}
 	
 	/** 
@@ -180,7 +171,7 @@ class Decks extends Controller {
 	  /**
 	   * Helper function: redirects after deck has been created/edited
 	   */
-	  private function redirect() {
+	  private function redirect($id) {
 		if(isset($_POST["save"])) {
 			header("location: ".BASE_URL."decks/view");
 		} else {

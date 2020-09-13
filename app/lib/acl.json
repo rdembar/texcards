@@ -2,7 +2,6 @@
 	"Guest": {
 		"denied" : {},
 		"page" : ["*"],
-		"decks" : ["create"],
 		"register" : ["createaccount", "login"]
 	},
 	"LoggedIn": {

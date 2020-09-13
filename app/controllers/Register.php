@@ -19,11 +19,6 @@ class Register extends Controller {
      * account
      */
     public function createaccount() {
-		// If user logged in, redirect
-		if(isset($_SESSION["username"])) {
-			header("location: ".BASE_URL."decks/view");
-		}
-        
         // Process form data
         if($_POST) {
             // Validate form entries
@@ -40,7 +35,7 @@ class Register extends Controller {
 				$user->login();
 				
 				$this->set_alert("success", "You have created an account!");
-				header("location: ".BASE_URL."decks/create");
+				Router::redirect('decks/create');
             }
         }
         
@@ -51,12 +46,7 @@ class Register extends Controller {
     /**
      * Login functionality
      */
-    public function login($logged_out = false) {
-		// If user logged in, redirect
-		if(isset($_SESSION["username"])) {
-			header("location: ".BASE_URL."decks/view");
-		}
-				
+    public function login($logged_out = false) {	
 		// Logged out mesage
 		if($logged_out) {
 			$this->createAccount();
@@ -107,6 +97,11 @@ class Register extends Controller {
         if(isset($_SESSION["username"])) {
             $user = new Users($_SESSION["username"]);
             $user->logout();
+			if(isset($_COOKIE["username"])) {
+				$c = new Cookie();
+				$c->destroy();
+			}
+			
 			$this->set_alert("success", "You have been logged out successfully.");
 			header("location: ".BASE_URL."register/login");
         } else {

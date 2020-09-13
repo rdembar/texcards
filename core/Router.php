@@ -24,9 +24,7 @@
     }
 	
 	public static function redirect($link) {
-		$url = [];
-		$url = explode('/', $link);
-		self::route($url);
+		header("location: ".BASE_URL.$link);
 	}
 	
 	public static function has_access($controller, $method = 'view') {

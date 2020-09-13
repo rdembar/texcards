@@ -20,7 +20,4 @@
 		<title><?php echo $data["title"];?></title>
     </head>
     <body>
-		<div id="alert-container">
-		</div>
-	
 		<div class="content-wrap">

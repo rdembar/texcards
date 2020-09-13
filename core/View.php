@@ -15,9 +15,12 @@ class View {
 		
 		// Display message if there is one
 		if(isset($_SESSION["message"])) {
-			$this->render("messages/alert", array("type" => $_SESSION["message_type"], "message" => 
-														$_SESSION["message"], "static" => $_SESSION["message_static"]));
-			unset($_SESSION["message_type"], $_SESSION["message"], $_SESSION["message_static"]);
+			$message_data = array("type" => $_SESSION["message_type"], "message" => $_SESSION["message"], "warn" => false);
+			if(isset($_SESSION["warn_action"])) {
+				$message_data["warn"] = true;
+				$message_data["action"] = $_SESSION["warn_action"];
+			}
+			$this->render('messages/alert_static', $message_data);
 		}
 		
         $this->render($viewName, $data);

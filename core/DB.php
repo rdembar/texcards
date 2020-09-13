@@ -46,7 +46,7 @@ class DB {
         $vals = [];
         // Put quotation marks around values
         foreach ($values as $val) {
-            $vals[] = "'".$val."'";
+            $vals[] = "'".addslashes($val)."'";
         }
         
         $this->_mysqli->query("INSERT INTO ".$table." (".$cols.") VALUES (".implode(", ", $vals).");");
@@ -110,7 +110,7 @@ class DB {
     public function update($table, $values, $id) {
         $vals = [];
         foreach($values as $k => $v) {
-            $vals[] = $k." = '".$v."'";
+            $vals[] = $k." = '".addslashes($v)."'";
         }
         
         $this->_mysqli->query("UPDATE ".$table." SET ".implode(", ", $vals)." WHERE id = ".$id.";");

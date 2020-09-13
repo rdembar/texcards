@@ -22,11 +22,9 @@
 		<button style="margin-bottom: 8px;" class="button-outline block spaced"
 				onclick="window.location.href='<?php echo BASE_URL;?>decks/edit/<?php echo $data["deck_id"];?>';">Edit</button>
 		<br>
-		<a id = "delete" style="margin-top: 8px;"
-		   onclick="pop_up_static('warning', `Are you sure you want to delete this deck? Once 
-		   done, this action cannot be undone. <br> <a href='<?php echo BASE_URL;?>decks/delete/<?php echo $data["deck_id"];?>'>
-		   Yes, I'm sure.</a>`);">
-		   <i class="fas fa-trash"></i>Delete Deck
+		
+		<a id="delete" style="margin-top: 8px;" href="<?php echo BASE_URL;?>decks/delete/<?php echo $data['deck_id'];?>">
+			<i class="fas fa-trash"></i>Delete Deck
 		</a>
 	</div>
 	

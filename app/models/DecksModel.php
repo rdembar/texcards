@@ -55,7 +55,7 @@ class DecksModel extends Model {
         // Create new table for deck and populate
         $this->db->query("CREATE TABLE ".$id." (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, term TEXT, answer TEXT);");
         foreach ($cards as $k => $v) {
-            $this->db->insert($id, array("term" => str_replace('\\', '\\\\', $k), "answer" => str_replace('\\', '\\\\', $v)));
+            $this->db->insert($id, array("term" => $k, "answer" => $v));
         }
 		
 		return $id;
@@ -77,7 +77,7 @@ class DecksModel extends Model {
 		// Change cards in deck table
 		$this->db->query("DELETE FROM ".$deck_id.";");
 		foreach ($cards as $k => $v) {
-			$this->db->insert($deck_id, array("term" => str_replace('\\', '\\\\', $k), "answer" => str_replace('\\', '\\\\', $v)));
+			$this->db->insert($deck_id, array("term" => $k, "answer" => $v));
 		}
 	}
 	

@@ -11,11 +11,6 @@ class Cards extends Controller {
 	public function __construct() {
 		parent::__construct();
 		
-		// If user not logged in, redirect
-		if(!isset($_SESSION["username"])) {
-			header("location: ".BASE_URL."register/login");
-		}
-		
 		// Initialize data values
 		$this->data = array("title" => "", "last_studied" => "", "deck_id" => "", "cards" => array());
 	}

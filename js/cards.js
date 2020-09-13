@@ -43,8 +43,8 @@ function setup() {
 	index = 0;
 	
 	// Flashcard = first card
-	$('.front .text').html(terms[0]);
-	$('.back .text').html(cards_arr[terms[0]]);
+	$('.front .text').text(terms[0]);
+	$('.back .text').text(cards_arr[terms[0]]);
 	
 	// Render math
 	render();
@@ -64,8 +64,8 @@ function iter(num) {
 		});
 	} else if (index + num < terms.length && index + num >= 0) {
 		// Sets flashcard
-		$('.front .text').html(terms[index + num]);
-		$('.back .text').html(cards_arr[terms[index + num]]);
+		$('.front .text').text(terms[index + num]);
+		$('.back .text').text(cards_arr[terms[index + num]]);
 	
 		// Render math
 		render();

@@ -12,13 +12,14 @@ $(document).ready(function() {
 		for (var card in cards_arr) {
 			add_card(card, cards_arr[card]);
 		}
-		$('textarea').each(function() {
-			text_to_span(this);
-		});
 	}
 	
 	$('span.textarea').each(function() {
 		$(this).addClass('textarea-clear');
+	});
+	
+	$('textarea').each(function() {
+		textarea_height(this);
 	});
 	
 	// Button to add card
@@ -45,14 +46,45 @@ $(document).ready(function() {
     // Textarea toggle
     $(document).on('click', '.textarea-container', function() {
        $(this).find('textarea').focus(); 
+	   textarea_height($($(this).find('textarea')));
     });
     $(document).on('focusout', 'textarea', function() {
         text_to_span(this);
     });
+	
+	// Don't allow user to go over 200 characters per card
+	$(document).on('keydown', 'textarea', function(e) {
+		if(e.key == 'Enter') {
+			e.preventDefault();
+		}
+		if($(this).val().length >= 200) {
+			if(e.key != 'Backspace') {
+				e.preventDefault();
+			}
+		}
+	});
+	$(document).on('paste', 'textarea', function(e) {
+		var paste = (event.clipboardData || window.clipboardData).getData('text');
+		paste = $(this).val() + paste;
+		if(paste.length > 200) {
+			paste = paste.substr(0,200);
+		}
+		$(this).val(paste.replace(/(?:\r\n|\r|\n)/g, ' '));
+		textarea_height(this);
+		
+		e.preventDefault();
+	});
+	
+	$(window).resize(function() {
+		$('textarea').each(function() {
+			text_to_span(this);
+		});
+	});
 });
 
 // Toggles textarea -> span
 function text_to_span(txt) {
+	
 	var id = $(txt).attr('name');
 	var span = document.getElementById(id);
 	if($(span).height() != $(txt).height()) {
@@ -63,7 +95,7 @@ function text_to_span(txt) {
 		$(span).addClass('textarea-clear');
 	} else {
 		$(span).removeClass('textarea-clear');
-		$(span).html($(txt).val());
+		$(span).text($(txt).val());
 		renderMathInElement(span, {delimiters: [{left: "$$", right: "$$", display: false}]});
 	}
 }
@@ -104,6 +136,8 @@ function delete_card(num) {
 		// Change textarea namespaceURI
 		$($(`#card_${i} td`)[1]).find('textarea').attr('name', `q${i-1}`);
 		$($(`#card_${i} td`)[2]).find('textarea').attr('name', `a${i-1}`);
+		$('#q'+i).prop('id', `q${i-1}`);
+		$('#a'+i).prop('id', `a${i-1}`);
 		
 		// Change del id
 		$(`#card_${i} td:last-child .del`).prop('id', i-1);

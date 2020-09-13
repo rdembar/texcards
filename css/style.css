@@ -134,6 +134,21 @@ i.clickable:hover {
 	color: rgba(0,0,0,0.5);
 }
 
+/* HOME PAGE */
+#bg-row {
+	background: #fff;
+	width: 100%;
+	box-sizing: content-box;
+	padding: 0px 150px;
+	padding-bottom: 40px !important;
+	margin-left: -150px;
+}
+#home-row img {
+	margin-top: 8px;
+	padding: 10px;
+	border: 10px solid rgba(0,126,250,0.5);
+}
+
 /* BUTTONS */
 button, input[type=submit] {
     font-family: inherit;
@@ -159,6 +174,8 @@ button.button-fill:hover, input[type=submit]:hover { box-shadow: 2px 2px 5px 0px
 /* Colors */
 button.green, input[type=submit].green {background: #03D565; border: 1px solid #03D565;}
 button.green:active, input[type=submit].green:active {background: #0efb7d; border: 1px solid #0efb7d;;}
+button.yellow, input[type=submit].yellow {background: #F5B400; border: 1px solid #F5B400;}
+button.yellow:active, input[type=submit].yellow:active {background: #FFC933; border: 1px solid #FFC933;}
 
 /* Outline button */
 button.button-outline {
@@ -206,6 +223,11 @@ nav.menu {
 	min-height: 60px;
 	padding: 15px 30px;
 	font-weight: bold;
+}
+nav.menu img {
+	display: inline-block;
+	height: 30px;
+	width: auto;
 }
 .nav-brand {
     font-family: "Unica One";
@@ -332,7 +354,7 @@ textarea {
     position: absolute;
     border-bottom: 2px solid #fff;
     border-right: 2px solid #fff;
-    top: 2px;
+    top: 1px;
     left: 5px;
     height: 8px;
     width: 4px;
@@ -346,16 +368,17 @@ textarea {
 
 /* ALERTS */
 #alert-container {
-	position: fixed;
+	position: absolute;
 	left: 0px;
+	top: 0px;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,0.1);
+	background: rgba(0,0,0,0.2);
 	transition: background 0.8s;
-	padding-top: 70px !important;
+	padding-top: 64px !important;
 	padding: 10px;
-	display: none;
 	z-index: 1000;
+	text-align: center;
 }
 .alert, .pop-up {
 	background: #fff;
@@ -366,59 +389,19 @@ textarea {
 }
 .alert {
 	overflow: hidden;
-	position: absolute;
-}
-.alert-slide {
-	width: 30%;
-	right: -30%;
+	display: inline-block;
+	text-align: left;
 }
 .alert-static {
 	width: 70%;
-	left: 50%;
-	transform: translate(-50%);
+	max-width: 900px;
 }
 .alert table td:last-child {
-	padding: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 16px;
 	padding-right: 40px !important;
 }
-/* Pop-ups */
-.pop-up-container {
-	position: absolute;
-	width: 100%;
-	left: 0px;
-	text-align: center;
-	padding: 10px 20px;
-}
-.pop-up {
-	padding: 40px;
-	width: 100%;
-	max-width: 1000px;
-	display: inline-block;
-	text-align: left;
-}
-.pop-up table td:last-child {
-	width: 40%;
-	display: none;
-}
-.img-contain {
-	padding-left: 30px;
-	position: absolute;
-	margin-left: 50%;
-	width: 50%;
-	bottom: 0px;
-}
-.img-contain img {display: block; margin-bottom: 10px;}
-.pop-up table td:last-child img {max-height: 150px;}
-.pop-up table td {vertical-align: bottom;}
-
-/* Fixed pop-up */
-#alert-container .pop-up {
-	text-align: left;
-	display: inline-block;
-	margin-top: -65px;
-}
-
-
 /* Alert icons */
 .alert i {
 	display: inline-block;
@@ -449,6 +432,36 @@ textarea {
 	color: rgba(3, 213, 101, 1);
 }
 .alert-success a {color: #03D565;}
+
+/* Pop-ups */
+.pop-up-container {
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	text-align: center;
+	padding: 10px 20px;
+}
+.pop-up {
+	padding: 40px;
+	width: 100%;
+	max-width: 1000px;
+	display: inline-block;
+	text-align: left;
+}
+.pop-up table td:last-child {
+	width: 40%;
+	display: none;
+}
+.img-contain {
+	padding-left: 30px;
+	position: absolute;
+	margin-left: 50%;
+	width: 50%;
+	bottom: 0px;
+}
+.img-contain img {display: block; margin-bottom: 10px;}
+.pop-up table td:last-child img {max-height: 150px;}
+.pop-up table td {vertical-align: bottom;}
 
 /* Success message */
 .message-green {
@@ -624,7 +637,6 @@ span.textarea-clear {
 }
 .front, .back {
   position: absolute;
-  padding: 20px;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
@@ -639,7 +651,9 @@ span.textarea-clear {
 }
 .text {
 	font-size: 1.5em;
+	width: 70%;
     position: absolute;
+	text-align: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -680,7 +694,7 @@ button.button-correct:hover {
 /* Medium devices (landscape tablets) */
 @media only screen and (max-width: 992px) {
     .content {padding: 0px 20px;}
-    .content-extra-padding {padding: 0px;}
+    #bg-row {padding: 0px 20px; margin-left: -20px;}
 }
 
 /* Pop-ups */
@@ -745,6 +759,11 @@ button.button-correct:hover {
 
 	/* Alerts */
 	.alert-static {width: 90%;}
+	.text { width: 85%;}
+	
+}
+@media only screen and (max-width: 720px) {
+	#home-row [class*="col-"] { width: 100%; }
 }
 /* Extra small devices (phones) */
 @media only screen and (max-width: 600px) {

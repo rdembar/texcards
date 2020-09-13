@@ -29,11 +29,7 @@
 		
 		<br>
 		
-		<form id="delete_account" action = "" method = "post">
-			<input type="hidden" name="delete_account" value="yes" />
-			<input type="hidden" name="delete_called" value="<?php echo $data["delete_called"];?>" />
-			<a onclick="$('#delete_account').submit();"><i class="fas fa-trash"></i>Delete Account</a>
-		</form>
+		<a href="<?php echo BASE_URL;?>account/delete_account"><i class="fas fa-trash"></i>Delete Account</a>
 	</div>
 </form>
 	

@@ -24,7 +24,7 @@ if (isset($data["cards"])) {
 				}?>
 			</h2>
 			<label>Title</label>
-			<input type="text" name="title" value="<?php echo $title;?>" placeholder="Give your deck a title" />
+			<input type="text" name="title" value="<?php echo str_replace('"', '&quot;', $title);?>" placeholder="Give your deck a title" />
 			<span class="fine red" id="title"><?php echo $data["err"]; ?></span>
 					
 			<br><br>

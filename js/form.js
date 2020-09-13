@@ -7,14 +7,10 @@ $(document).ready(function() {
         $(input).prop('checked', !$(input).prop('checked'));
    });
    
-   // Textarea automatic resizing
-   $(document).on('focusin', 'textarea', function() {
-	   	$('#pseudo-div').css('width', ($(this).width()+2) + "px");
-   });
+   // Textarea resizing
 
 	$(window).resize(function() {
 		$('textarea').each(function() {
-			$('#pseudo-div').css('width', ($(this).width()+2) + "px");
 			textarea_height(this);
 		});
 	});
@@ -34,7 +30,8 @@ $(document).ready(function() {
 
 // Set textarea height
 function textarea_height(txt) {
-	$('#pseudo-div').html($(txt).val());
+	$('#pseudo-div').css('width', ($(txt).width()+2) + "px");
+	$('#pseudo-div').text($(txt).val());
 
 	var height = Math.max(Math.ceil($('#pseudo-div').height()),26);
     if(height != $(txt).height()) {

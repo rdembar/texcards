@@ -1,5 +1,3 @@
-
-
 <div class="row" id="bg-row">
 	<div class="bg-container">
 	</div>
@@ -7,11 +5,13 @@
         <div class="container">
             <h1>Welcome to TexCards!</h1>
             TexCards is the only flashcard tool on the internet designed
-			exclusively for learning math. 
-			<br>
+			exclusively for learning math. Use TexCards to make and study math flashcards 
+			using LaTeX. 
 			
 			<br><br>
-			<button class="button-fill large">Sign Up</button>
+			
+			<button class="button-fill large yellow"
+					onclick="window.location.href='<?php echo BASE_URL;?>register/createaccount';">Sign Up</button>
         </div>
     </div>
     <div class="col-7">
@@ -23,20 +23,22 @@
 	<div class="col-12">
 		<br><br>
 		<h2>How it works</h2>
-		A lil bit of text goes here.
+		Using TexCards is simple!
 	</div>
 </div>
 
-<div class="row" style="text-align: center;">
+<div class="row" id="home-row" style="text-align: center;">
 	<div class="col-4">
-		<b>Create decks using LaTeX</b>
-		<img src="<?php echo BASE_URL;?>img/screenshot.png">
+		<b>1. Create decks using LaTeX</b>
+		<img class="border" src="<?php echo BASE_URL;?>img/homepage_1.png" />
 	</div>
 	<div class="col-4">
-		<b>Study flashcards</b>
+		<b>2. Study flashcards</b>
+		<img class="border" src="<?php echo BASE_URL;?>img/homepage_2_1.png" />
 	</div>
 	<div class="col-4">
-		<b>Improve!</b>
+		<b>3. Improve!</b>
+		<img class="border" src="<?php echo BASE_URL;?>img/homepage_3.png" />
 	</div>
 </div>
 
