@@ -1,18 +1,18 @@
 {
 	"Guest": {
-		"denied" : {},
-		"page" : ["*"],
-		"register" : ["createaccount", "login"]
+		"Denied" : {},
+		"Page" : ["*"],
+		"Register" : ["createaccount", "login"]
 	},
 	"LoggedIn": {
-		"denied" : {
-			"register": ["createaccount", "login"],
-			"page" : ["home"]
+		"Denied" : {
+			"Register": ["createaccount", "login"],
+			"Page" : ["home"]
 		},
-		"account" : ["*"],
-		"cards" : ["*"],
-		"decks" : ["*"],
-		"page" : ["*"],
-		"register" : ["logout"]
+		"Account" : ["*"],
+		"Cards" : ["*"],
+		"Decks" : ["*"],
+		"Page" : ["*"],
+		"Register" : ["logout"]
 	}
 }

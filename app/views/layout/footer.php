@@ -8,5 +8,7 @@
 			View this project on <a href='https://github.com/rdembar/texcards'>GitHub</a>.
 			</span>
 		</div>
+		
+		<script src="<?php echo BASE_URL?>js/form.js"></script>
 	</body>
 </html>

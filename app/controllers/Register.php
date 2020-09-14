@@ -46,17 +46,12 @@ class Register extends Controller {
     /**
      * Login functionality
      */
-    public function login($logged_out = false) {	
-		// Logged out mesage
-		if($logged_out) {
-			$this->createAccount();
-		}
-        
+    public function login() {	
         // Loads cookie class for "Remember me" functionality
         $cookie = new Cookie();
         
         // Process form data
-        if ($_POST) {
+        if ($_POST) {			
             // Validate form entries
             $val = new Validate();
             if (!($val->user_exists($_POST["username"]))) {
@@ -69,14 +64,14 @@ class Register extends Controller {
             if (empty($this->data["username_err"]) && empty($this->data["password_err"])) {
                 $user = new Users($_POST["username"]);
                 $user->login();
-                                
+                                 
                 // Remember me
                 if(isset($_POST["remember_me"])) {
                     $cookie->setCookie($_POST["username"]);
                 }
 				
 				// Redirect to "My Decks"
-				header("location: ".BASE_URL."decks/view");
+				Router::redirect('decks/view');
             }
         }
         

@@ -1,5 +1,5 @@
 <?php
-define('ROOT', dirname(__FILE__));
+define('ROOT', '/var/www/latexcards.com');
 
 /** load config settings */
 require_once(ROOT.'/config/config.php');

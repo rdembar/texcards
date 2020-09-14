@@ -15,7 +15,7 @@
 				<h2>Login</h2>
 				Welcome back! Log into your account to start studying.
 				
-				<form action = "/mvc2/register/login" method = "post">
+				<form action = "<?php echo BASE_URL;?>register/login" method = "post">
 					<label>Username</label>
 					<input type="text" name="username"></input>
 					<span class="fine red" id="username"><?php echo $data["username_err"]; ?></span>

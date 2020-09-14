@@ -4,7 +4,7 @@
 define('DEBUG', true);
 
 /** Set default controller if not specified in url */
-define('DEFAULT_CONTROLLER', 'test');
+define('DEFAULT_CONTROLLER', 'Page');
 
 /** Database settings */
 define('DB_NAME', 'texcards');
@@ -13,8 +13,8 @@ define('DB_PASSWORD', 'enemyseal543124');
 define('DB_HOST', 'localhost');
 
 /** Set start of url */
-define('BASE_URL', 'http://localhost/mvc2/');
+define('BASE_URL', 'https://latexcards.com/');
 
 /* ACL */
-define('ACCESS_RESTRICTED', 'page');
+define('ACCESS_RESTRICTED', 'Page');
 
